@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="white">#FFFFFF</color>
+
+    <color name="startColor_btngoback">#ED701B</color>
+    <color name="endColor_btngoback">#EF9224</color>
+    <color name="sevenday_forecast">#898989</color>
+    <color name="Precipitation">#24C3F1</color>
+    <color name="desc_Precipitation">#575757</color>
+    <color name="tv_sunmon">#FE8000</color>
+    <color name="tv_win">#7DCE7A</color>
+    <color name="tv_item_tempera_24hour">#595959</color>
+    <color name="tv_item_gio_24hour">#595959</color>
+    <color name="tv_item_7day">#666666</color>
+    <color name="bg_menu_tranfer">#7F000000</color>
+
+</resources>

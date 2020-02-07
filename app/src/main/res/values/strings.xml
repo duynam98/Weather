@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Weather</string>
+    <string name="btn_Goback">GO BACK</string>
+    <string name="city">Hanoi</string>
+    <string name="currendate">TH6, 31 THÁNG 5</string>
+    <string name="desc_weather">Hôm nay - Giông bão. Cao 27 độ C. Gió BĐB ở tốc độ 10 đến 15km/giờ. Khả năng có mưa 90%.</string>
+    <string name="next_24hour">24 GIỜ TIẾP</string>
+    <string name="weather_7day">7-day forecast</string>
+    <string name="month">Tháng</string>
+    <string name="sunrise">Sunrise: %s</string>
+    <string name="title_containner4"><![CDATA[Wind & Visibility]]></string>
+    <string name="title_containner3"><![CDATA[Sun & Moon]]></string>
+    <string name="title_containner2">Precipitation</string>
+    <string name="sunset">Sunset: %s</string>
+    <string name="mm">%s mm</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="manage_city">Quản lý thành phố</string>
+</resources>

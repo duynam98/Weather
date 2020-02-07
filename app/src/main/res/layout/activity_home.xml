@@ -1,0 +1,627 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="day"
+            type="com.duynam.myapplication.model.sevendayweather.Day" />
+
+        <variable
+            name="currentWeather"
+            type="com.duynam.myapplication.model.CurrenWeather" />
+
+        <variable
+            name="timeframe"
+            type="com.duynam.myapplication.model.sevendayweather.Timeframe" />
+
+        <variable
+            name="home"
+            type="com.duynam.myapplication.view.HomeActivity" />
+
+        <import type="android.view.View"/>
+
+    </data>
+
+    <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.HomeActivity"
+        android:id="@+id/drawerLayout"
+        tools:openDrawer="end">
+
+        <com.google.android.material.navigation.NavigationView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:fitsSystemWindows="true"
+            android:background="@color/bg_menu_tranfer">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/manage_city"
+                    android:textColor="@color/white"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="@dimen/size_40"
+                    android:textSize="@dimen/text_size_20"
+                    android:id="@+id/tv_manage_city"/>
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tv_manage_city"
+                    android:layout_marginBottom="@dimen/text_size_32" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.navigation.NavigationView>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#2196F3">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/container1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/img_pinmap"
+                        android:layout_width="@dimen/size_20"
+                        android:layout_height="@dimen/size_20"
+                        android:layout_marginLeft="@dimen/size_32"
+                        android:layout_marginTop="@dimen/size_59"
+                        android:src="@drawable/map_pin"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:layout_width="@dimen/size_24"
+                        android:layout_height="@dimen/size_24"
+                        android:layout_marginRight="@dimen/size_16"
+                        android:src="@drawable/menu"
+                        app:layout_constraintBottom_toBottomOf="@id/img_pinmap"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/img_pinmap" />
+
+                    <TextView
+                        android:id="@+id/tv_city"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/size_29"
+                        android:layout_marginTop="@dimen/size_28"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_19"
+                        app:layout_constraintStart_toStartOf="@id/img_pinmap"
+                        app:layout_constraintTop_toBottomOf="@id/img_pinmap" />
+
+                    <TextView
+                        android:id="@+id/tv_nhietdo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:includeFontPadding="false"
+                        android:lineHeight="@dimen/size_96"
+                        android:text="@{String.valueOf(currentWeather.tempC)}"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_82"
+                        app:layout_constraintStart_toStartOf="@id/img_pinmap"
+                        app:layout_constraintTop_toBottomOf="@id/tv_city" />
+
+                    <TextView
+                        android:layout_width="@dimen/size_44"
+                        android:layout_height="wrap_content"
+                        android:text="°C"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/size_36"
+                        app:layout_constraintStart_toEndOf="@id/tv_nhietdo"
+                        app:layout_constraintTop_toTopOf="@id/tv_nhietdo" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/size_29"
+                        android:layout_marginLeft="@dimen/size_17"
+                        android:layout_marginTop="@dimen/size_5"
+                        android:lineHeight="@dimen/size_22"
+                        android:text="@{currentWeather.wxDesc}"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_19"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_nhietdo"
+                        app:layout_constraintStart_toEndOf="@id/tv_nhietdo" />
+
+                    <TextView
+                        android:id="@+id/tv_currendate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/size_18"
+                        android:layout_marginTop="@dimen/size_8"
+                        android:lineHeight="@dimen/size_16"
+                        android:text="@string/currendate"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_14"
+                        app:layout_constraintStart_toStartOf="@id/img_pinmap"
+                        app:layout_constraintTop_toBottomOf="@id/tv_nhietdo" />
+
+                    <TextView
+                        android:id="@+id/tv_weatherMain"
+                        android:layout_width="@dimen/size_129"
+                        android:layout_height="@dimen/size_22"
+                        android:layout_marginTop="@dimen/size_5"
+                        android:text="@{currentWeather.wxDesc}"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_16"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="@id/img_pinmap"
+                        app:layout_constraintTop_toBottomOf="@id/tv_currendate" />
+
+                    <TextView
+                        android:id="@+id/tv_descWeather"
+                        android:layout_width="@dimen/size_284"
+                        android:layout_height="@dimen/size_31"
+                        android:layout_marginTop="@dimen/size_8"
+                        android:text="@string/desc_weather"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_12"
+                        app:layout_constraintStart_toStartOf="@id/img_pinmap"
+                        app:layout_constraintTop_toBottomOf="@id/tv_weatherMain" />
+
+                    <TextView
+                        android:id="@+id/tv_title24"
+                        android:layout_width="@dimen/size_87"
+                        android:layout_height="@dimen/size_22"
+                        android:layout_marginLeft="@dimen/size_8"
+                        android:layout_marginTop="@dimen/size_151"
+                        android:text="@string/next_24hour"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_14"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_descWeather" />
+
+                    <FrameLayout
+                        android:id="@+id/frame_24hour"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/size_111"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/size_8"
+                        android:layout_marginTop="@dimen/size_13"
+                        android:layout_marginRight="@dimen/size_8"
+                        android:background="@drawable/framelayout_border"
+                        app:layout_constraintStart_toStartOf="@id/tv_title24"
+                        app:layout_constraintTop_toBottomOf="@id/tv_title24">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_list24hour"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/size_16"/>
+
+                    </FrameLayout>
+
+                    <ImageView
+                        android:layout_width="@dimen/size_20"
+                        android:layout_height="@dimen/size_20"
+                        android:layout_marginTop="@dimen/size_8"
+                        android:src="@drawable/next"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/frame_24hour" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/size_8"
+                    android:background="@drawable/framelayout_border"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="@dimen/size_200"
+                        android:layout_height="@dimen/size_24"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/size_10"
+                        android:gravity="center"
+                        android:text="@string/weather_7day"
+                        android:textColor="@color/sevenday_forecast" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_listForecast"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/size_22"
+                        android:layout_marginRight="@dimen/size_22"/>
+
+                    <TextView
+                        android:id="@+id/tv_addForecast"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal|bottom"
+                        android:layout_marginBottom="@dimen/size_24"
+                        android:layout_marginTop="@dimen/size_24"
+                        android:gravity="center"
+                        android:text="+4 More"
+                        android:onClick="@{home::addMore4}"/>
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_287"
+                    android:layout_marginTop="@dimen/size_5"
+                    android:background="@drawable/framelayout_border">
+
+                    <TextView
+                        android:id="@+id/tv_prec"
+                        android:layout_width="@dimen/size_200"
+                        android:layout_height="@dimen/size_24"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/size_10"
+                        android:gravity="center"
+                        android:text="@string/title_containner2" />
+
+                    <TextView
+                        android:id="@+id/tv_doam"
+                        android:layout_width="@dimen/size_109"
+                        android:layout_height="@dimen/size_51"
+                        android:layout_below="@id/tv_prec"
+                        android:layout_marginLeft="@dimen/size_33"
+                        android:layout_marginTop="@dimen/size_22"
+                        android:gravity="center"
+                        android:text="45%"
+                        android:textColor="@color/Precipitation"
+                        android:textSize="@dimen/text_size_43" />
+
+                    <TextView
+                        android:layout_width="@dimen/size_109"
+                        android:layout_height="@dimen/size_24"
+                        android:layout_below="@id/tv_doam"
+                        android:layout_alignLeft="@id/tv_doam"
+                        android:layout_alignRight="@id/tv_doam"
+                        android:gravity="center"
+                        android:text="Chance of Rain"
+                        android:textColor="@color/desc_Precipitation" />
+
+                    <ImageView
+                        android:layout_width="@dimen/size_40"
+                        android:layout_height="@dimen/size_40"
+                        android:layout_below="@id/tv_doam"
+                        android:layout_alignLeft="@id/tv_doam"
+                        android:layout_alignRight="@id/tv_doam"
+                        android:layout_marginTop="@dimen/text_size_48"
+                        android:src="@drawable/umbrella" />
+
+                    <ImageView
+                        android:id="@+id/img_cocnuoc"
+                        android:layout_width="@dimen/size_22"
+                        android:layout_height="@dimen/size_22"
+                        android:layout_below="@id/tv_prec"
+                        android:layout_alignRight="@id/tv_prec"
+                        android:layout_marginTop="@dimen/size_25"
+                        android:src="@drawable/cocnuoc" />
+
+                    <ImageView
+                        android:id="@+id/img_mua"
+                        android:layout_width="@dimen/size_22"
+                        android:layout_height="@dimen/size_22"
+                        android:layout_below="@id/img_cocnuoc"
+                        android:layout_alignRight="@id/tv_prec"
+                        android:layout_marginTop="@dimen/size_36"
+                        android:src="@drawable/mua" />
+
+                    <ImageView
+                        android:id="@+id/img_giotnuoc"
+                        android:layout_width="@dimen/size_22"
+                        android:layout_height="@dimen/size_22"
+                        android:layout_below="@id/img_mua"
+                        android:layout_alignRight="@id/tv_prec"
+                        android:layout_marginTop="@dimen/size_36"
+                        android:src="@drawable/giotnuoc" />
+
+                    <ImageView
+                        android:id="@+id/img_nhietke"
+                        android:layout_width="@dimen/size_22"
+                        android:layout_height="@dimen/size_22"
+                        android:layout_below="@id/img_giotnuoc"
+                        android:layout_alignRight="@id/tv_prec"
+                        android:layout_marginTop="@dimen/size_36"
+                        android:src="@drawable/nhietke" />
+
+                    <TextView
+                        android:id="@+id/tv_cocnuoc"
+                        android:layout_width="@dimen/size_57"
+                        android:layout_height="@dimen/size_24"
+                        android:layout_alignTop="@id/img_cocnuoc"
+                        android:layout_toRightOf="@id/img_cocnuoc"
+                        android:text="@{String.valueOf(timeframe.rainMm)}"
+                        android:textColor="@color/Precipitation"
+                        android:textSize="@dimen/text_size_16" />
+
+                    <TextView
+                        android:layout_width="@dimen/size_97"
+                        android:layout_height="@dimen/size_24"
+                        android:layout_below="@+id/tv_cocnuoc"
+                        android:layout_toRightOf="@id/img_cocnuoc"
+                        android:text="Precipitation"
+                        android:textColor="@color/desc_Precipitation"
+                        android:textSize="@dimen/text_size_16" />
+
+                    <TextView
+                        android:id="@+id/tv_mua"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/size_24"
+                        android:layout_alignTop="@id/img_mua"
+                        android:layout_toRightOf="@id/img_cocnuoc"
+                        android:text="@{String.valueOf(currentWeather.dewpointC)}"
+                        android:textColor="@color/Precipitation"
+                        android:textSize="@dimen/text_size_16" />
+
+                    <TextView
+                        android:layout_width="@dimen/size_97"
+                        android:layout_height="@dimen/size_24"
+                        android:layout_below="@+id/tv_mua"
+                        android:layout_toRightOf="@id/img_cocnuoc"
+                        android:text="Dew Point"
+                        android:textColor="@color/desc_Precipitation"
+                        android:textSize="@dimen/text_size_16" />
+
+                    <TextView
+                        android:id="@+id/tv_giotnuoc"
+                        android:layout_width="@dimen/size_57"
+                        android:layout_height="@dimen/size_24"
+                        android:layout_alignTop="@id/img_giotnuoc"
+                        android:layout_toRightOf="@id/img_cocnuoc"
+                        android:text="@{String.valueOf(currentWeather.humidPct)}"
+                        android:textColor="@color/Precipitation"
+                        android:textSize="@dimen/text_size_16" />
+
+                    <TextView
+                        android:layout_width="@dimen/size_97"
+                        android:layout_height="@dimen/size_24"
+                        android:layout_below="@+id/tv_giotnuoc"
+                        android:layout_toRightOf="@id/img_cocnuoc"
+                        android:text="Humid"
+                        android:textColor="@color/desc_Precipitation"
+                        android:textSize="@dimen/text_size_16" />
+
+                    <TextView
+                        android:id="@+id/tv_nhietke"
+                        android:layout_width="@dimen/size_57"
+                        android:layout_height="@dimen/size_24"
+                        android:layout_alignTop="@id/img_nhietke"
+                        android:layout_toRightOf="@id/img_cocnuoc"
+                        android:text="@{String.valueOf(currentWeather.feelslikeC)}"
+                        android:textColor="@color/Precipitation"
+                        android:textSize="@dimen/text_size_16" />
+
+                    <TextView
+                        android:layout_width="@dimen/size_97"
+                        android:layout_height="@dimen/size_24"
+                        android:layout_below="@+id/tv_nhietke"
+                        android:layout_toRightOf="@id/img_cocnuoc"
+                        android:text="Real Feel"
+                        android:textColor="@color/desc_Precipitation"
+                        android:textSize="@dimen/text_size_16" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_287"
+                    android:layout_marginTop="@dimen/size_5"
+                    android:background="@drawable/framelayout_border">
+
+                    <TextView
+                        android:id="@+id/tv_sunmom"
+                        android:layout_width="@dimen/size_200"
+                        android:layout_height="@dimen/size_24"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/size_10"
+                        android:gravity="center"
+                        android:text="@string/title_containner3" />
+
+                    <TextView
+                        android:id="@+id/tv_fullmon"
+                        android:layout_width="@dimen/size_102"
+                        android:layout_height="@dimen/size_18"
+                        android:layout_below="@id/tv_sunmom"
+                        android:layout_marginLeft="@dimen/size_24"
+                        android:layout_marginTop="@dimen/size_24"
+                        android:text="Full Moon"
+                        android:textColor="@color/tv_sunmon"
+                        android:textSize="@dimen/text_size_14" />
+
+                    <TextView
+                        android:layout_width="@dimen/size_102"
+                        android:layout_height="@dimen/size_18"
+                        android:layout_below="@id/tv_fullmon"
+                        android:layout_alignLeft="@id/tv_fullmon"
+                        android:text="21 Jan"
+                        android:textColor="@color/tv_sunmon"
+                        android:textSize="@dimen/text_size_14" />
+
+                    <ImageView
+                        android:id="@+id/img_sun"
+                        android:layout_width="@dimen/size_33"
+                        android:layout_height="@dimen/size_33"
+                        android:layout_below="@id/tv_sunmom"
+                        android:layout_alignLeft="@id/tv_sunmom"
+                        android:layout_alignRight="@id/tv_sunmom"
+                        android:layout_marginTop="@dimen/size_22"
+                        android:src="@drawable/sunmon2" />
+
+                    <ImageView
+                        android:layout_width="@dimen/size_17"
+                        android:layout_height="@dimen/size_17"
+                        android:layout_alignTop="@id/img_sun"
+                        android:layout_alignBottom="@id/img_sun"
+                        android:layout_toRightOf="@id/tv_fullmon"
+                        android:src="@drawable/sunmon1" />
+
+                    <TextView
+                        android:id="@+id/tv_lastQuarter"
+                        android:layout_width="@dimen/size_102"
+                        android:layout_height="@dimen/size_18"
+                        android:layout_below="@id/tv_sunmom"
+                        android:layout_alignTop="@id/tv_fullmon"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/size_24"
+                        android:gravity="right"
+                        android:text="Last Quarter"
+                        android:textColor="@color/tv_sunmon"
+                        android:textSize="@dimen/text_size_14" />
+
+                    <TextView
+                        android:layout_width="@dimen/size_102"
+                        android:layout_height="@dimen/size_18"
+                        android:layout_below="@id/tv_fullmon"
+                        android:layout_alignLeft="@id/tv_lastQuarter"
+                        android:gravity="right"
+                        android:text="28 Jan"
+                        android:textColor="@color/tv_sunmon"
+                        android:textSize="@dimen/text_size_14" />
+
+                    <ImageView
+                        android:layout_width="@dimen/size_17"
+                        android:layout_height="@dimen/size_17"
+                        android:layout_alignTop="@id/img_sun"
+                        android:layout_alignBottom="@id/img_sun"
+                        android:layout_toLeftOf="@id/tv_lastQuarter"
+                        android:src="@drawable/sunmon3" />
+
+                    <TextView
+                        android:id="@+id/tv_sunrise"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/size_18"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="@dimen/size_40"
+                        android:layout_marginBottom="@dimen/size_33"
+                        android:text="@{@string/sunrise(day.sunriseTime)}"
+                        android:textColor="@color/tv_sunmon"
+                        android:textSize="@dimen/text_size_14" />
+
+                    <TextView
+                        android:id="@+id/tv_sunset"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/size_18"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginRight="@dimen/size_40"
+                        android:layout_marginBottom="@dimen/size_33"
+                        android:gravity="right"
+                        android:text="@{@string/sunset(day.sunsetTime)}"
+                        android:textColor="@color/tv_sunmon"
+                        android:textSize="@dimen/text_size_14" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_176"
+                    android:layout_marginTop="@dimen/size_5"
+                    android:background="@drawable/framelayout_border">
+
+                    <TextView
+                        android:id="@+id/tv_title_win"
+                        android:layout_width="@dimen/size_200"
+                        android:layout_height="@dimen/size_24"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/size_10"
+                        android:gravity="center"
+                        android:text="@string/title_containner4" />
+
+                    <TextView
+                        android:id="@+id/tv_tocdogio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/size_38"
+                        android:layout_below="@id/tv_title_win"
+                        android:layout_marginLeft="@dimen/size_36"
+                        android:layout_marginTop="@dimen/size_20"
+                        android:gravity="center"
+                        android:text="@{String.valueOf(currentWeather.windspdKmh)}"
+                        android:textColor="@color/tv_win"
+                        android:textSize="@dimen/text_size_32" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@id/tv_tocdogio"
+                        android:layout_toRightOf="@id/tv_tocdogio"
+                        android:text="km/h"
+                        android:textColor="@color/tv_win" />
+
+                    <ImageView
+                        android:id="@+id/img_car"
+                        android:layout_width="@dimen/size_127"
+                        android:layout_height="@dimen/size_24"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginRight="@dimen/size_24"
+                        android:layout_marginBottom="@dimen/size_35"
+                        android:src="@drawable/car" />
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@id/img_car"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/size_85">
+
+                        <TextView
+                            android:id="@+id/tv_tocdoxe"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/size_38"
+                            android:text="6"
+                            android:textColor="@color/tv_win"
+                            android:textSize="@dimen/text_size_32" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBottom="@id/tv_tocdoxe"
+                            android:layout_toRightOf="@id/tv_tocdoxe"
+                            android:text="km/h"
+                            android:textColor="@color/tv_win" />
+                    </RelativeLayout>
+
+                    <ImageView
+                        android:layout_width="@dimen/size_74"
+                        android:layout_height="@dimen/size_59"
+                        android:layout_below="@id/tv_tocdogio"
+                        android:layout_marginLeft="@dimen/size_23"
+                        android:src="@drawable/tree" />
+
+                    <TextView
+                        android:layout_width="@dimen/size_64"
+                        android:layout_height="@dimen/size_17"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="@dimen/size_79"
+                        android:layout_marginBottom="@dimen/size_36"
+                        android:text="Northest"
+                        android:textColor="@color/tv_win" />
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+
+</layout>

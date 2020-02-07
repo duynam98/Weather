@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="holder"
+            type="com.duynam.myapplication.adapter.HourAdapter.ViewHolder" />
+
+        <variable
+            name="timeframe"
+            type="com.duynam.myapplication.model.sevendayweather.Timeframe" />
+        
+        <variable
+            name="image"
+            type="String" />
+
+
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginLeft="@dimen/size_24"
+        android:layout_marginRight="@dimen/size_24">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{holder.temp}"
+            android:textSize="@dimen/text_size_14"
+            android:textColor="@color/tv_item_tempera_24hour" />
+
+        <ImageView
+            android:id="@+id/img_24hour"
+            android:layout_width="@dimen/size_24"
+            android:layout_height="@dimen/size_24"
+            android:layout_marginTop="@dimen/size_8"
+            android:layout_marginBottom="@dimen/size_12"
+            profileImage="@{image}"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.valueOf(holder.time)}"
+            android:textSize="@dimen/text_size_14"/>
+
+    </LinearLayout>
+
+</layout>
+

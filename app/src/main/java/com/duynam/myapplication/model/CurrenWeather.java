@@ -86,9 +86,6 @@ public class CurrenWeather {
     @SerializedName("dewpoint_c")
     @Expose
     private Double dewpointC;
-    @SerializedName("dewpoint_f")
-    @Expose
-    private Double dewpointF;
 
     public Double getLat() {
         return lat;
@@ -290,13 +287,7 @@ public class CurrenWeather {
         this.dewpointC = dewpointC;
     }
 
-    public Double getDewpointF() {
-        return dewpointF;
-    }
-
-    public void setDewpointF(Double dewpointF) {
-        this.dewpointF = dewpointF;
-    }
+   
 
     @BindingAdapter("currenImage")
     public static void loadImage(ImageView imageView, String name){

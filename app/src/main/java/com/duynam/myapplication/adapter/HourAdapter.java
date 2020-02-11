@@ -1,25 +1,16 @@
 package com.duynam.myapplication.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
-import androidx.databinding.BindingAdapter;
 import androidx.databinding.DataBindingUtil;
-import androidx.databinding.ObservableField;
-import androidx.databinding.ObservableInt;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.duynam.myapplication.R;
-import com.duynam.myapplication.databinding.Item7dayBinding;
 import com.duynam.myapplication.databinding.ItemWeather24hourBinding;
 import com.duynam.myapplication.model.sevendayweather.Timeframe;
-import com.duynam.myapplication.untils.Constant;
 
 import java.util.List;
 
@@ -52,7 +43,7 @@ public class HourAdapter extends RecyclerView.Adapter<HourAdapter.ViewHolder> {
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         public int time;
         public String temp;
@@ -65,8 +56,8 @@ public class HourAdapter extends RecyclerView.Adapter<HourAdapter.ViewHolder> {
             this.itemWeather24hourBinding = itemWeather24hourBinding;
         }
 
-        public void setBinding(Timeframe timeframe){
-            if (itemWeather24hourBinding.getHolder() == null){
+        public void setBinding(Timeframe timeframe) {
+            if (itemWeather24hourBinding.getHolder() == null) {
                 itemWeather24hourBinding.setHolder(this);
             }
             temp = timeframe.getTempC() + "°C";

@@ -103,10 +103,10 @@ public class HomeActivity extends AppCompatActivity {
                     currenWeather.setHumidPct(response.body().getHumidPct());
                     currenWeather.setWindspdKmh(response.body().getWindspdKmh());
                     City city = dao.geCity(getCurrentNameCity(latitude, longtitude));
-                    if (city == null){
+                    if (city == null) {
                         City addcity = new City(latitude, longtitude, getCurrentNameCity(latitude, longtitude), response.body().getTempC());
                         dao.insertCity(addcity);
-                    }else {
+                    } else {
                         City updatecity = new City();
                         updatecity.setLatitude(latitude);
                         updatecity.setLongtitude(longtitude);
@@ -277,13 +277,13 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
-    public void initPremission(){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+    public void initPremission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                         Manifest.permission.ACCESS_FINE_LOCATION)) {
 
-                }else {
+                } else {
                     ActivityCompat.requestPermissions(this,
                             new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                             1000);
@@ -297,7 +297,7 @@ public class HomeActivity extends AppCompatActivity {
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    
+
                 } else {
                     initPremission();
                 }

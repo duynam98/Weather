@@ -19,63 +19,30 @@
             name="home"
             type="com.duynam.myapplication.view.HomeActivity" />
 
-        <import type="android.view.View"/>
+        <variable
+            name="city"
+            type="com.duynam.myapplication.model.City" />
 
     </data>
 
-    <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/frame_fragmentCity"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.HomeActivity"
-        android:id="@+id/drawerLayout"
-        tools:openDrawer="end">
+        android:background="#2196F3"
+        android:fillViewport="true"
+        tools:context=".view.HomeActivity">
 
-        <com.google.android.material.navigation.NavigationView
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scrool"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="end"
-            android:fitsSystemWindows="true"
-            android:background="@color/bg_menu_tranfer">
+            android:layout_height="match_parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/manage_city"
-                    android:textColor="@color/white"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginTop="@dimen/size_40"
-                    android:textSize="@dimen/text_size_20"
-                    android:id="@+id/tv_manage_city"/>
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/tv_manage_city"
-                    android:layout_marginBottom="@dimen/text_size_32" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </com.google.android.material.navigation.NavigationView>
-
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#2196F3">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/container1"
@@ -93,6 +60,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
+                        android:id="@+id/img_menu_fragment"
                         android:layout_width="@dimen/size_24"
                         android:layout_height="@dimen/size_24"
                         android:layout_marginRight="@dimen/size_16"
@@ -183,14 +151,14 @@
                         android:id="@+id/tv_title24"
                         android:layout_width="@dimen/size_87"
                         android:layout_height="@dimen/size_22"
-                        android:layout_marginLeft="@dimen/size_8"
                         android:layout_marginTop="@dimen/size_151"
+                        android:includeFontPadding="false"
                         android:text="@string/next_24hour"
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_size_14"
                         android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tv_descWeather" />
+                        app:layout_constraintBottom_toTopOf="@id/frame_24hour"
+                        app:layout_constraintStart_toStartOf="@id/frame_24hour" />
 
                     <FrameLayout
                         android:id="@+id/frame_24hour"
@@ -201,344 +169,374 @@
                         android:layout_marginTop="@dimen/size_13"
                         android:layout_marginRight="@dimen/size_8"
                         android:background="@drawable/framelayout_border"
-                        app:layout_constraintStart_toStartOf="@id/tv_title24"
-                        app:layout_constraintTop_toBottomOf="@id/tv_title24">
+                        app:layout_constraintBottom_toTopOf="@id/img_nextContainer"
+                        app:layout_constraintStart_toStartOf="@id/tv_title24">
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rv_list24hour"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/size_16"/>
+                            android:layout_marginTop="@dimen/size_16" />
 
                     </FrameLayout>
 
                     <ImageView
+                        android:id="@+id/img_nextContainer"
                         android:layout_width="@dimen/size_20"
                         android:layout_height="@dimen/size_20"
                         android:layout_marginTop="@dimen/size_8"
                         android:src="@drawable/next"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/frame_24hour" />
+                        app:layout_constraintStart_toStartOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/container_7day"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/size_8"
                     android:background="@drawable/framelayout_border"
-                    android:orientation="vertical">
+                    app:layout_constraintTop_toBottomOf="@id/container1">
 
                     <TextView
+                        android:id="@+id/title_7dayForecast"
                         android:layout_width="@dimen/size_200"
                         android:layout_height="@dimen/size_24"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="@dimen/size_10"
                         android:gravity="center"
                         android:text="@string/weather_7day"
-                        android:textColor="@color/sevenday_forecast" />
+                        android:textColor="@color/sevenday_forecast"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_listForecast"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="0dp"
                         android:layout_marginLeft="@dimen/size_22"
-                        android:layout_marginRight="@dimen/size_22"/>
+                        android:layout_marginTop="@dimen/size_24"
+                        android:layout_marginRight="@dimen/size_22"
+                        app:layout_constraintTop_toBottomOf="@id/title_7dayForecast" />
 
                     <TextView
                         android:id="@+id/tv_addForecast"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal|bottom"
-                        android:layout_marginBottom="@dimen/size_24"
                         android:layout_marginTop="@dimen/size_24"
+                        android:layout_marginBottom="@dimen/size_24"
                         android:gravity="center"
+                        android:onClick="@{home::addMore4}"
                         android:text="+4 More"
-                        android:onClick="@{home::addMore4}"/>
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/rv_listForecast" />
 
-                </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <RelativeLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    app:layout_constraintTop_toBottomOf="@id/container_7day"
+                    android:id="@+id/constrain_precipitation"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/size_287"
                     android:layout_marginTop="@dimen/size_5"
                     android:background="@drawable/framelayout_border">
 
                     <TextView
-                        android:id="@+id/tv_prec"
+                        android:id="@+id/tv_title_prec"
                         android:layout_width="@dimen/size_200"
                         android:layout_height="@dimen/size_24"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="@dimen/size_10"
                         android:gravity="center"
-                        android:text="@string/title_containner2" />
+                        android:text="@string/title_containner2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/tv_doam"
                         android:layout_width="@dimen/size_109"
                         android:layout_height="@dimen/size_51"
-                        android:layout_below="@id/tv_prec"
                         android:layout_marginLeft="@dimen/size_33"
                         android:layout_marginTop="@dimen/size_22"
                         android:gravity="center"
                         android:text="45%"
                         android:textColor="@color/Precipitation"
-                        android:textSize="@dimen/text_size_43" />
+                        android:textSize="@dimen/text_size_43"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_title_prec" />
 
                     <TextView
                         android:layout_width="@dimen/size_109"
                         android:layout_height="@dimen/size_24"
-                        android:layout_below="@id/tv_doam"
-                        android:layout_alignLeft="@id/tv_doam"
-                        android:layout_alignRight="@id/tv_doam"
                         android:gravity="center"
                         android:text="Chance of Rain"
-                        android:textColor="@color/desc_Precipitation" />
+                        android:textColor="@color/desc_Precipitation"
+                        app:layout_constraintEnd_toEndOf="@id/tv_doam"
+                        app:layout_constraintStart_toStartOf="@id/tv_doam"
+                        app:layout_constraintTop_toBottomOf="@id/tv_doam" />
 
                     <ImageView
                         android:layout_width="@dimen/size_40"
                         android:layout_height="@dimen/size_40"
-                        android:layout_below="@id/tv_doam"
-                        android:layout_alignLeft="@id/tv_doam"
-                        android:layout_alignRight="@id/tv_doam"
                         android:layout_marginTop="@dimen/text_size_48"
-                        android:src="@drawable/umbrella" />
+                        android:src="@drawable/umbrella"
+                        app:layout_constraintEnd_toEndOf="@id/tv_doam"
+                        app:layout_constraintStart_toStartOf="@id/tv_doam"
+                        app:layout_constraintTop_toBottomOf="@id/tv_doam" />
 
                     <ImageView
                         android:id="@+id/img_cocnuoc"
                         android:layout_width="@dimen/size_22"
                         android:layout_height="@dimen/size_22"
-                        android:layout_below="@id/tv_prec"
-                        android:layout_alignRight="@id/tv_prec"
                         android:layout_marginTop="@dimen/size_25"
-                        android:src="@drawable/cocnuoc" />
+                        android:src="@drawable/cocnuoc"
+                        app:layout_constraintEnd_toEndOf="@id/tv_title_prec"
+                        app:layout_constraintTop_toBottomOf="@id/tv_title_prec" />
 
                     <ImageView
-                        android:id="@+id/img_mua"
+                        android:id="@+id/img_dewpoint"
                         android:layout_width="@dimen/size_22"
                         android:layout_height="@dimen/size_22"
-                        android:layout_below="@id/img_cocnuoc"
-                        android:layout_alignRight="@id/tv_prec"
                         android:layout_marginTop="@dimen/size_36"
-                        android:src="@drawable/mua" />
+                        android:src="@drawable/mua"
+                        app:layout_constraintEnd_toEndOf="@id/tv_title_prec"
+                        app:layout_constraintTop_toBottomOf="@id/img_cocnuoc" />
 
                     <ImageView
                         android:id="@+id/img_giotnuoc"
                         android:layout_width="@dimen/size_22"
                         android:layout_height="@dimen/size_22"
-                        android:layout_below="@id/img_mua"
-                        android:layout_alignRight="@id/tv_prec"
                         android:layout_marginTop="@dimen/size_36"
-                        android:src="@drawable/giotnuoc" />
+                        android:src="@drawable/giotnuoc"
+                        app:layout_constraintEnd_toEndOf="@id/tv_title_prec"
+                        app:layout_constraintTop_toBottomOf="@id/img_dewpoint" />
 
                     <ImageView
                         android:id="@+id/img_nhietke"
                         android:layout_width="@dimen/size_22"
                         android:layout_height="@dimen/size_22"
-                        android:layout_below="@id/img_giotnuoc"
-                        android:layout_alignRight="@id/tv_prec"
                         android:layout_marginTop="@dimen/size_36"
-                        android:src="@drawable/nhietke" />
+                        android:src="@drawable/nhietke"
+                        app:layout_constraintEnd_toEndOf="@id/tv_title_prec"
+                        app:layout_constraintTop_toBottomOf="@id/img_giotnuoc" />
 
                     <TextView
-                        android:id="@+id/tv_cocnuoc"
+                        android:id="@+id/tv_rain"
                         android:layout_width="@dimen/size_57"
                         android:layout_height="@dimen/size_24"
-                        android:layout_alignTop="@id/img_cocnuoc"
-                        android:layout_toRightOf="@id/img_cocnuoc"
                         android:text="@{String.valueOf(timeframe.rainMm)}"
                         android:textColor="@color/Precipitation"
-                        android:textSize="@dimen/text_size_16" />
+                        android:textSize="@dimen/text_size_16"
+                        app:layout_constraintStart_toEndOf="@id/img_cocnuoc"
+                        app:layout_constraintTop_toTopOf="@id/img_cocnuoc" />
 
                     <TextView
                         android:layout_width="@dimen/size_97"
                         android:layout_height="@dimen/size_24"
-                        android:layout_below="@+id/tv_cocnuoc"
-                        android:layout_toRightOf="@id/img_cocnuoc"
                         android:text="Precipitation"
                         android:textColor="@color/desc_Precipitation"
-                        android:textSize="@dimen/text_size_16" />
+                        android:textSize="@dimen/text_size_16"
+                        app:layout_constraintStart_toEndOf="@id/img_cocnuoc"
+                        app:layout_constraintTop_toBottomOf="@id/img_cocnuoc" />
 
                     <TextView
-                        android:id="@+id/tv_mua"
+                        android:id="@+id/tv_dewpoint"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/size_24"
-                        android:layout_alignTop="@id/img_mua"
-                        android:layout_toRightOf="@id/img_cocnuoc"
                         android:text="@{String.valueOf(currentWeather.dewpointC)}"
                         android:textColor="@color/Precipitation"
-                        android:textSize="@dimen/text_size_16" />
+                        android:textSize="@dimen/text_size_16"
+                        app:layout_constraintStart_toEndOf="@id/img_dewpoint"
+                        app:layout_constraintTop_toTopOf="@id/img_dewpoint" />
 
                     <TextView
                         android:layout_width="@dimen/size_97"
                         android:layout_height="@dimen/size_24"
-                        android:layout_below="@+id/tv_mua"
-                        android:layout_toRightOf="@id/img_cocnuoc"
                         android:text="Dew Point"
                         android:textColor="@color/desc_Precipitation"
-                        android:textSize="@dimen/text_size_16" />
+                        android:textSize="@dimen/text_size_16"
+                        app:layout_constraintStart_toEndOf="@id/img_dewpoint"
+                        app:layout_constraintTop_toBottomOf="@id/img_dewpoint" />
 
                     <TextView
                         android:id="@+id/tv_giotnuoc"
                         android:layout_width="@dimen/size_57"
                         android:layout_height="@dimen/size_24"
-                        android:layout_alignTop="@id/img_giotnuoc"
-                        android:layout_toRightOf="@id/img_cocnuoc"
                         android:text="@{String.valueOf(currentWeather.humidPct)}"
                         android:textColor="@color/Precipitation"
-                        android:textSize="@dimen/text_size_16" />
+                        android:textSize="@dimen/text_size_16"
+                        app:layout_constraintStart_toEndOf="@id/img_giotnuoc"
+                        app:layout_constraintTop_toTopOf="@id/img_giotnuoc" />
 
                     <TextView
                         android:layout_width="@dimen/size_97"
                         android:layout_height="@dimen/size_24"
                         android:layout_below="@+id/tv_giotnuoc"
                         android:layout_toRightOf="@id/img_cocnuoc"
-                        android:text="Humid"
+                        android:text="@string/humid"
                         android:textColor="@color/desc_Precipitation"
-                        android:textSize="@dimen/text_size_16" />
+                        android:textSize="@dimen/text_size_16"
+                        app:layout_constraintStart_toEndOf="@id/img_giotnuoc"
+                        app:layout_constraintTop_toBottomOf="@id/img_giotnuoc" />
 
                     <TextView
                         android:id="@+id/tv_nhietke"
                         android:layout_width="@dimen/size_57"
                         android:layout_height="@dimen/size_24"
-                        android:layout_alignTop="@id/img_nhietke"
-                        android:layout_toRightOf="@id/img_cocnuoc"
                         android:text="@{String.valueOf(currentWeather.feelslikeC)}"
                         android:textColor="@color/Precipitation"
-                        android:textSize="@dimen/text_size_16" />
+                        android:textSize="@dimen/text_size_16"
+                        app:layout_constraintStart_toEndOf="@id/img_nhietke"
+                        app:layout_constraintTop_toTopOf="@id/img_nhietke" />
 
                     <TextView
                         android:layout_width="@dimen/size_97"
                         android:layout_height="@dimen/size_24"
-                        android:layout_below="@+id/tv_nhietke"
-                        android:layout_toRightOf="@id/img_cocnuoc"
                         android:text="Real Feel"
                         android:textColor="@color/desc_Precipitation"
-                        android:textSize="@dimen/text_size_16" />
+                        android:textSize="@dimen/text_size_16"
+                        app:layout_constraintStart_toEndOf="@id/img_nhietke"
+                        app:layout_constraintTop_toBottomOf="@id/img_nhietke" />
 
-                </RelativeLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <RelativeLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    app:layout_constraintTop_toBottomOf="@+id/constrain_precipitation"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/size_287"
                     android:layout_marginTop="@dimen/size_5"
-                    android:background="@drawable/framelayout_border">
+                    android:background="@drawable/framelayout_border"
+                    android:id="@+id/constrain_sunmon">
 
                     <TextView
                         android:id="@+id/tv_sunmom"
                         android:layout_width="@dimen/size_200"
                         android:layout_height="@dimen/size_24"
-                        android:layout_centerHorizontal="true"
                         android:layout_marginTop="@dimen/size_10"
                         android:gravity="center"
-                        android:text="@string/title_containner3" />
+                        android:text="@string/title_containner3"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/tv_fullmon"
                         android:layout_width="@dimen/size_102"
                         android:layout_height="@dimen/size_18"
-                        android:layout_below="@id/tv_sunmom"
                         android:layout_marginLeft="@dimen/size_24"
                         android:layout_marginTop="@dimen/size_24"
                         android:text="Full Moon"
                         android:textColor="@color/tv_sunmon"
-                        android:textSize="@dimen/text_size_14" />
+                        android:textSize="@dimen/text_size_14"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_sunmom" />
 
                     <TextView
                         android:layout_width="@dimen/size_102"
                         android:layout_height="@dimen/size_18"
-                        android:layout_below="@id/tv_fullmon"
-                        android:layout_alignLeft="@id/tv_fullmon"
                         android:text="21 Jan"
                         android:textColor="@color/tv_sunmon"
-                        android:textSize="@dimen/text_size_14" />
+                        android:textSize="@dimen/text_size_14"
+                        app:layout_constraintStart_toStartOf="@id/tv_fullmon"
+                        app:layout_constraintTop_toBottomOf="@id/tv_fullmon" />
 
                     <ImageView
                         android:id="@+id/img_sun"
                         android:layout_width="@dimen/size_33"
                         android:layout_height="@dimen/size_33"
-                        android:layout_below="@id/tv_sunmom"
-                        android:layout_alignLeft="@id/tv_sunmom"
-                        android:layout_alignRight="@id/tv_sunmom"
                         android:layout_marginTop="@dimen/size_22"
-                        android:src="@drawable/sunmon2" />
+                        android:src="@drawable/sunmon2"
+                        app:layout_constraintEnd_toEndOf="@id/tv_sunmom"
+                        app:layout_constraintStart_toStartOf="@id/tv_sunmom"
+                        app:layout_constraintTop_toBottomOf="@id/tv_sunmom" />
 
                     <ImageView
                         android:layout_width="@dimen/size_17"
                         android:layout_height="@dimen/size_17"
-                        android:layout_alignTop="@id/img_sun"
-                        android:layout_alignBottom="@id/img_sun"
-                        android:layout_toRightOf="@id/tv_fullmon"
-                        android:src="@drawable/sunmon1" />
+                        android:src="@drawable/sunmon1"
+                        app:layout_constraintBottom_toBottomOf="@id/img_sun"
+                        app:layout_constraintEnd_toEndOf="@id/tv_fullmon"
+                        app:layout_constraintTop_toTopOf="@id/img_sun" />
 
                     <TextView
                         android:id="@+id/tv_lastQuarter"
                         android:layout_width="@dimen/size_102"
                         android:layout_height="@dimen/size_18"
                         android:layout_below="@id/tv_sunmom"
-                        android:layout_alignTop="@id/tv_fullmon"
-                        android:layout_alignParentRight="true"
                         android:layout_marginRight="@dimen/size_24"
                         android:gravity="right"
                         android:text="Last Quarter"
                         android:textColor="@color/tv_sunmon"
-                        android:textSize="@dimen/text_size_14" />
+                        android:textSize="@dimen/text_size_14"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_sunmom"
+                        app:layout_constraintTop_toTopOf="@id/tv_fullmon" />
 
                     <TextView
                         android:layout_width="@dimen/size_102"
                         android:layout_height="@dimen/size_18"
-                        android:layout_below="@id/tv_fullmon"
-                        android:layout_alignLeft="@id/tv_lastQuarter"
                         android:gravity="right"
                         android:text="28 Jan"
                         android:textColor="@color/tv_sunmon"
-                        android:textSize="@dimen/text_size_14" />
+                        android:textSize="@dimen/text_size_14"
+                        app:layout_constraintStart_toStartOf="@id/tv_lastQuarter"
+                        app:layout_constraintTop_toBottomOf="@id/tv_fullmon" />
 
                     <ImageView
                         android:layout_width="@dimen/size_17"
                         android:layout_height="@dimen/size_17"
-                        android:layout_alignTop="@id/img_sun"
-                        android:layout_alignBottom="@id/img_sun"
-                        android:layout_toLeftOf="@id/tv_lastQuarter"
-                        android:src="@drawable/sunmon3" />
+                        android:src="@drawable/sunmon3"
+                        app:layout_constraintBottom_toBottomOf="@id/img_sun"
+                        app:layout_constraintStart_toStartOf="@id/tv_lastQuarter"
+                        app:layout_constraintTop_toTopOf="@id/img_sun" />
 
                     <TextView
                         android:id="@+id/tv_sunrise"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/size_18"
-                        android:layout_alignParentBottom="true"
                         android:layout_marginLeft="@dimen/size_40"
                         android:layout_marginBottom="@dimen/size_33"
                         android:text="@{@string/sunrise(day.sunriseTime)}"
                         android:textColor="@color/tv_sunmon"
-                        android:textSize="@dimen/text_size_14" />
+                        android:textSize="@dimen/text_size_14"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
 
                     <TextView
                         android:id="@+id/tv_sunset"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/size_18"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentBottom="true"
                         android:layout_marginRight="@dimen/size_40"
                         android:layout_marginBottom="@dimen/size_33"
                         android:gravity="right"
                         android:text="@{@string/sunset(day.sunsetTime)}"
                         android:textColor="@color/tv_sunmon"
-                        android:textSize="@dimen/text_size_14" />
-                </RelativeLayout>
+                        android:textSize="@dimen/text_size_14"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <RelativeLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/size_176"
                     android:layout_marginTop="@dimen/size_5"
-                    android:background="@drawable/framelayout_border">
+                    android:background="@drawable/framelayout_border"
+                    app:layout_constraintTop_toBottomOf="@+id/constrain_sunmon">
 
                     <TextView
                         android:id="@+id/tv_title_win"
                         android:layout_width="@dimen/size_200"
                         android:layout_height="@dimen/size_24"
-                        android:layout_centerHorizontal="true"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
                         android:layout_marginTop="@dimen/size_10"
                         android:gravity="center"
                         android:text="@string/title_containner4" />
@@ -547,7 +545,8 @@
                         android:id="@+id/tv_tocdogio"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/size_38"
-                        android:layout_below="@id/tv_title_win"
+                        app:layout_constraintTop_toBottomOf="@id/tv_title_win"
+                        app:layout_constraintStart_toStartOf="parent"
                         android:layout_marginLeft="@dimen/size_36"
                         android:layout_marginTop="@dimen/size_20"
                         android:gravity="center"
@@ -558,8 +557,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignBottom="@id/tv_tocdogio"
-                        android:layout_toRightOf="@id/tv_tocdogio"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_tocdogio"
+                        app:layout_constraintStart_toEndOf="@id/tv_tocdogio"
                         android:text="km/h"
                         android:textColor="@color/tv_win" />
 
@@ -567,18 +566,19 @@
                         android:id="@+id/img_car"
                         android:layout_width="@dimen/size_127"
                         android:layout_height="@dimen/size_24"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentBottom="true"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         android:layout_marginRight="@dimen/size_24"
                         android:layout_marginBottom="@dimen/size_35"
                         android:src="@drawable/car" />
 
-                    <RelativeLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_above="@id/img_car"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="@dimen/size_85">
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginRight="@dimen/size_85"
+                        app:layout_constraintBottom_toTopOf="@id/img_car">
 
                         <TextView
                             android:id="@+id/tv_tocdoxe"
@@ -586,42 +586,45 @@
                             android:layout_height="@dimen/size_38"
                             android:text="6"
                             android:textColor="@color/tv_win"
-                            android:textSize="@dimen/text_size_32" />
+                            android:textSize="@dimen/text_size_32"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignBottom="@id/tv_tocdoxe"
-                            android:layout_toRightOf="@id/tv_tocdoxe"
+                            app:layout_constraintBottom_toBottomOf="@id/tv_tocdoxe"
+                            app:layout_constraintStart_toEndOf="@id/tv_tocdoxe"
                             android:text="km/h"
                             android:textColor="@color/tv_win" />
-                    </RelativeLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <ImageView
                         android:layout_width="@dimen/size_74"
                         android:layout_height="@dimen/size_59"
-                        android:layout_below="@id/tv_tocdogio"
+                        app:layout_constraintTop_toBottomOf="@id/tv_tocdogio"
+                        app:layout_constraintStart_toStartOf="parent"
                         android:layout_marginLeft="@dimen/size_23"
-                        android:src="@drawable/tree" />
+                        android:src="@drawable/tree"
+                        android:id="@+id/img_tree"/>
 
                     <TextView
                         android:layout_width="@dimen/size_64"
                         android:layout_height="@dimen/size_17"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginLeft="@dimen/size_79"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/img_tree"
                         android:layout_marginBottom="@dimen/size_36"
                         android:text="Northest"
                         android:textColor="@color/tv_win" />
 
-                </RelativeLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-            </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.core.widget.NestedScrollView>
 
 
-
-    </androidx.drawerlayout.widget.DrawerLayout>
+    </FrameLayout>
 
 </layout>

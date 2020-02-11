@@ -15,4 +15,16 @@ public class RetrofitWeather {
         }
         return weather;
     }
+
+    public static WeatherServices city;
+    public static WeatherServices getInstanceCity(){
+        if (city == null){
+            Retrofit retrofit = new Retrofit.Builder().baseUrl("https://devru-latitude-longitude-find-v1.p.rapidapi.com/")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+            city = retrofit.create(WeatherServices.class);
+        }
+        return city;
+    }
+
 }

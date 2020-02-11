@@ -1,11 +1,16 @@
 package com.duynam.myapplication.untils;
 
+import android.location.Address;
+import android.location.Geocoder;
 import android.widget.TextView;
 
 import com.duynam.myapplication.view.HomeActivity;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 public class Untils {
 
@@ -22,6 +27,8 @@ public class Untils {
         int hour = Integer.parseInt(currendate);
         return hour;
     }
+
+
 
 
 

@@ -16,4 +16,6 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="manage_city">Quản lý thành phố</string>
+    <string name="humid">Humid</string>
+    <string name="no_city">Không có thành phố phù hợp</string>
 </resources>

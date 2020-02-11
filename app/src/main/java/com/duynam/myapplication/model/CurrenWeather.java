@@ -1,6 +1,11 @@
 
 package com.duynam.myapplication.model;
 
+import android.widget.ImageView;
+
+import androidx.databinding.BindingAdapter;
+
+import com.bumptech.glide.Glide;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -291,6 +296,13 @@ public class CurrenWeather {
 
     public void setDewpointF(Double dewpointF) {
         this.dewpointF = dewpointF;
+    }
+
+    @BindingAdapter("currenImage")
+    public static void loadImage(ImageView imageView, String name){
+        Glide.with(imageView.getContext())
+                .load(imageView.getResources().getIdentifier(name, "drawable", imageView.getContext().getPackageName()))
+                .into(imageView);
     }
 
 }

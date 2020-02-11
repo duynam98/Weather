@@ -16,5 +16,7 @@
     <color name="tv_item_gio_24hour">#595959</color>
     <color name="tv_item_7day">#666666</color>
     <color name="bg_menu_tranfer">#7F000000</color>
+    <color name="bg_edt_search_city">#354E69</color>
+    <color name="bg_fragment_search_city">#274260</color>
 
 </resources>

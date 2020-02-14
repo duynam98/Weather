@@ -27,4 +27,14 @@ public class RetrofitWeather {
         return city;
     }
 
+    public static WeatherServices UpdateLocalWeather(){
+        if (weather == null){
+            Retrofit retrofit = new Retrofit.Builder().baseUrl("https://api.openweathermap.org/data/2.5")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+            weather = retrofit.create(WeatherServices.class);
+        }
+        return weather;
+    }
+
 }

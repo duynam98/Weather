@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+
+    <data>
+
+        <variable
+            name="city"
+            type="com.duynam.myapplication.model.searchCity.Result" />
+
+        <variable
+            name="holder"
+            type="com.duynam.myapplication.adapter.SearchCityAdapter.Viewholder" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:background="@drawable/background_edt_search"
+        android:layout_margin="@dimen/size_4">
+
+            <TextView
+                android:singleLine="true"
+                android:id="@+id/tv_CityName"
+                android:layout_width="@dimen/size_72"
+                android:layout_height="wrap_content"
+                android:text="@{holder.name_city}"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_14"
+                android:gravity="center"
+                android:padding="@dimen/size_8"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

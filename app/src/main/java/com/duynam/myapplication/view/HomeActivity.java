@@ -7,8 +7,10 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -26,8 +28,10 @@ import com.duynam.myapplication.database.DatabaseHelper;
 import com.duynam.myapplication.databinding.ActivityHomeBinding;
 import com.duynam.myapplication.fragment.ListCityFragment;
 import com.duynam.myapplication.fragment.SearchCityFragment;
-import com.duynam.myapplication.model.City;
+import com.duynam.myapplication.httpUrlConnection.GetCurrentWeatherHttp;
+import com.duynam.myapplication.httpUrlConnection.GetWeatherCityHttp;
 import com.duynam.myapplication.model.CurrenWeather;
+import com.duynam.myapplication.model.modelUsingHttp.CurrenLocalCity;
 import com.duynam.myapplication.model.searchCity.Result;
 import com.duynam.myapplication.model.sevendayweather.Day;
 import com.duynam.myapplication.model.sevendayweather.Forecast;
@@ -45,11 +49,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements GetCurrentWeatherHttp.OnLoadData {
 
     private CurrenWeather currenWeather;
     private Day day;
-    private City city;
     public ActivityHomeBinding homeBinding;
     private double latitude, longtitude;
     private List<Day> dayList3;
@@ -66,26 +69,27 @@ public class HomeActivity extends AppCompatActivity {
     private Result result;
     private LinearLayoutManager layoutManager;
     private DatabaseHelper databaseHelper;
-    private List<City> cities;
+    private CurrenLocalCity localCity;
     private CurrenWeatherDAO dao;
     public final int MY_PERMISSIONS_REQUEST = 1000;
+    private boolean isPermissionGranted;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initPremission();
         homeBinding = DataBindingUtil.setContentView(this, R.layout.activity_home);
 
         init();
+        initPremission();
         callFragmentCity();
-        checkLocationgetData();
         scroolLayout();
         setLayoutRecycleview();
-
         homeBinding.setHome(this);
-        homeBinding.setCity(city);
-
         setHeight();
+
+        GetCurrentWeatherHttp getCurrentWeatherHttp = new GetCurrentWeatherHttp();
+        getCurrentWeatherHttp.onLoadData = this;
+        getCurrentWeatherHttp.execute("http://api.weatherunlocked.com/api/current/21.08,105.08?app_id=884027ed&app_key=b26a92bfaea6f49be8bbcac0f11fd43f");
 
     }
 
@@ -102,18 +106,6 @@ public class HomeActivity extends AppCompatActivity {
                     currenWeather.setFeelslikeC(response.body().getFeelslikeC());
                     currenWeather.setHumidPct(response.body().getHumidPct());
                     currenWeather.setWindspdKmh(response.body().getWindspdKmh());
-                    City city = dao.geCity(getCurrentNameCity(latitude, longtitude));
-                    if (city == null) {
-                        City addcity = new City(latitude, longtitude, getCurrentNameCity(latitude, longtitude), response.body().getTempC());
-                        dao.insertCity(addcity);
-                    } else {
-                        City updatecity = new City();
-                        updatecity.setLatitude(latitude);
-                        updatecity.setLongtitude(longtitude);
-                        updatecity.setName_city(getCurrentNameCity(latitude, longtitude));
-                        updatecity.setTemp_C(response.body().getTempC());
-                        dao.updateNote(updatecity);
-                    }
                     homeBinding.setCurrentWeather(currenWeather);
                 }
             }
@@ -128,7 +120,6 @@ public class HomeActivity extends AppCompatActivity {
     public void getLatlong() {
         latitude = simpleLocation.getLatitude();
         longtitude = simpleLocation.getLongitude();
-        getCurrentNameCity(latitude, longtitude);
         String latlong = latitude + "," + longtitude;
         getCurrentWeather(latlong);
         get7dayForecast(latlong);
@@ -166,32 +157,10 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
-    public String getCurrentNameCity(double latitude, double longtitude) {
-        String cityname = null;
-        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-        try {
-            List<Address> addressList = geocoder.getFromLocation(latitude, longtitude, 1);
-            cityname = addressList.get(0).getAdminArea();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return cityname;
-    }
 
     public void addMore4(View view) {
         adapter.setData(daylistFull);
         homeBinding.tvAddForecast.setVisibility(View.GONE);
-    }
-
-    public static String checkWeather(Day day) {
-        if (day.getHumidMaxPct() > 50) {
-            return "isorainswrsday";
-        } else if (day.getTempMinC() > 25.0) {
-            return "sunny";
-        } else if (day.getTempMinC() < 20 && day.getHumidMaxPct() > 50) {
-            return "mist";
-        }
-        return "cloudy";
     }
 
     public void setHeight() {
@@ -224,6 +193,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void init() {
+        localCity = new CurrenLocalCity();
         databaseHelper = new DatabaseHelper(this);
         dao = new CurrenWeatherDAO(databaseHelper);
         simpleLocation = new SimpleLocation(this);
@@ -247,15 +217,32 @@ public class HomeActivity extends AppCompatActivity {
         homeBinding.rvList24hour.setAdapter(hourAdapter);
     }
 
+    public String getCurrentNameCity(double latitude, double longtitude) {
+        String cityname = null;
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        try {
+            List<Address> addressList = geocoder.getFromLocation(latitude, longtitude, 1);
+            cityname = addressList.get(0).getAdminArea();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return cityname;
+    }
+
     public void checkLocationgetData() {
-        result = getIntent().getParcelableExtra("latlongcity");
-        if (result == null) {
-            getLatlong();
+        if (isPermissionGranted = true) {
+            result = getIntent().getParcelableExtra("latlongcity");
+            if (result == null) {
+                getLatlong();
+            } else {
+                addCitytoMenu(Double.parseDouble(result.getLat()), Double.parseDouble(result.getLon()));
+                String latlong = result.getLat() + "," + result.getLon();
+                getCurrentWeather(latlong);
+                getCurrentNameCity(Double.parseDouble(result.getLat()), Double.parseDouble(result.getLon()));
+                get7dayForecast(latlong);
+            }
         } else {
-            String latlong = result.getLat() + "," + result.getLon();
-            getCurrentWeather(latlong);
-            getCurrentNameCity(Double.parseDouble(result.getLat()), Double.parseDouble(result.getLon()));
-            get7dayForecast(latlong);
+
         }
     }
 
@@ -279,16 +266,20 @@ public class HomeActivity extends AppCompatActivity {
 
     public void initPremission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                    checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                         Manifest.permission.ACCESS_FINE_LOCATION)) {
 
                 } else {
                     ActivityCompat.requestPermissions(this,
-                            new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                            new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
                             1000);
                 }
             }
+            //checkLocationgetData();
+        } else {
+            //checkLocationgetData();
         }
     }
 
@@ -297,14 +288,36 @@ public class HomeActivity extends AppCompatActivity {
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
+                    isPermissionGranted = true;
+                    Toast.makeText(this, simpleLocation.getLatitude()+"", Toast.LENGTH_SHORT).show();
+                    //checkLocationgetData();
                 } else {
-                    initPremission();
+
                 }
                 return;
             }
         }
     }
 
+    public void addCitytoMenu(double  latitude, double longtitude) {
+        GetWeatherCityHttp http = new GetWeatherCityHttp(this);
+        http.execute(Constant.OPENWEATHER + "?" +"lat="+latitude+"&"+"lon="+longtitude+"&"+Constant.APPID_OPENWEATHER);
+        GetWeatherCityHttp.OnLoadComplete onLoadComplete = new GetWeatherCityHttp.OnLoadComplete() {
+            @Override
+            public void onListLoadComplete(CurrenLocalCity localCityList) {
+                localCity = localCityList;
+                dao.insertCity(localCityList);
+            }
+        };
+        http.setOnLoadComplete(onLoadComplete);
+    }
 
+
+    @Override
+    public void onLoadFinish(CurrenWeather currenWeather) {
+        CurrenWeather currenWeather1 = new CurrenWeather();
+        currenWeather1 = currenWeather;
+        Log.e("quanmatlon", "onLoadFinish: " + currenWeather1 );
+        homeBinding.setCurrentWeather(currenWeather1);
+    }
 }

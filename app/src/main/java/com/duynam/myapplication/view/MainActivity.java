@@ -20,8 +20,6 @@ public class MainActivity extends AppCompatActivity {
     private FragmentTransaction fragmentTransaction;
     private ErrorNetWorkFragment fragmentErrorNetWork;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,8 +39,5 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
     }
-
-
-
 
 }

@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.duynam.myapplication.R;
 import com.duynam.myapplication.databinding.Item7dayBinding;
 import com.duynam.myapplication.model.sevendayweather.Day;
+import com.duynam.myapplication.untils.Constant;
+import com.duynam.myapplication.untils.Untils;
 import com.duynam.myapplication.view.HomeActivity;
 
 import java.util.List;
@@ -78,7 +80,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.Viewholder> {
             }
             date.set(day.getDate());
             temp = day.getTempMinC() + "-" + day.getTempMaxC() + "°C";
-            item7dayBinding.setImage(HomeActivity.checkWeather(day));
+            item7dayBinding.setImage(Untils.checkWeather(day));
         }
     }
 

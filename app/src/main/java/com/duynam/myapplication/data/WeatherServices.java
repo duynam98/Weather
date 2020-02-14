@@ -23,4 +23,5 @@ public interface WeatherServices {
     @Headers("x-rapidapi-key: fb3a7f902emsh0c3934aa317e3d0p1eaff7jsn0825f131f08c")
     @GET("/latlon.php")
     Call<CityListResult> searchCity(@Query("location") String location);
+
 }

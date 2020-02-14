@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.duynam.myapplication.R;
 import com.duynam.myapplication.databinding.ItemWeather24hourBinding;
 import com.duynam.myapplication.model.sevendayweather.Timeframe;
+import com.duynam.myapplication.untils.Untils;
 
 import java.util.List;
 
@@ -48,8 +49,7 @@ public class HourAdapter extends RecyclerView.Adapter<HourAdapter.ViewHolder> {
         public int time;
         public String temp;
         private ItemWeather24hourBinding itemWeather24hourBinding;
-        public String name, icon_name;
-        String[] icon;
+        public String name;
 
         public ViewHolder(@NonNull ItemWeather24hourBinding itemWeather24hourBinding) {
             super(itemWeather24hourBinding.getRoot());
@@ -63,9 +63,7 @@ public class HourAdapter extends RecyclerView.Adapter<HourAdapter.ViewHolder> {
             temp = timeframe.getTempC() + "°C";
             time = timeframe.getTime();
             name = timeframe.getWxIcon();
-            icon = name.split("\\.");
-            icon_name = icon[0].toLowerCase();
-            itemWeather24hourBinding.setImage(icon_name);
+            itemWeather24hourBinding.setImage(Untils.convertImageName(name));
         }
 
     }

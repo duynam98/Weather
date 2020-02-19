@@ -1,26 +1,27 @@
 package com.duynam.myapplication.httpUrlConnection;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.duynam.myapplication.model.CurrenWeather;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
-public class GetCurrentWeatherHttp extends AsyncTask<String, Void, String> {
+public class GetCurrentWeatherHttp extends AsyncTask<String, Void, CurrenWeather> {
 
     private CurrenWeather currenWeather;
-    public OnLoadData onLoadData = null;
+    public OnLoadData onLoadData;
+
+    public void setOnLoadData(OnLoadData onLoadData) {
+        this.onLoadData = onLoadData;
+    }
 
     @Override
-    protected String doInBackground(String... strings) {
+    protected CurrenWeather doInBackground(String... strings) {
         try {
             URL url = new URL(strings[0]);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -34,24 +35,23 @@ public class GetCurrentWeatherHttp extends AsyncTask<String, Void, String> {
                     builder.append(line);
                 }
             }
-            return builder.toString();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+            currenWeather = new CurrenWeather();
+            if (builder.toString() != null) {
+                Gson gson = new Gson();
+                CurrenWeather weather = gson.fromJson(builder.toString(), CurrenWeather.class);
+                currenWeather = weather;
+            }
+
+        } catch (Exception e){
             e.printStackTrace();
         }
-        return null;
+        return currenWeather;
     }
 
     @Override
-    protected void onPostExecute(String s) {
+    protected void onPostExecute(CurrenWeather s) {
         super.onPostExecute(s);
-        currenWeather = new CurrenWeather();
-        if (s != null) {
-            Gson gson = new Gson();
-            CurrenWeather weather = gson.fromJson(s, CurrenWeather.class);
-            currenWeather = weather;
-            Log.e("ObjectWeather", "onPostExecute: " + currenWeather );
+        if (s!=null){
             onLoadData.onLoadFinish(currenWeather);
         }
     }

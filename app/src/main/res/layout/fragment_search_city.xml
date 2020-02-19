@@ -5,14 +5,28 @@
 
         <variable
             name="searchcity"
-            type="com.duynam.myapplication.fragment.SearchCityFragment" />
+            type="com.duynam.myapplication.view.searchcity.SearchCityFragment" />
+
+        <variable
+            name="searchViewModel"
+            type="com.duynam.myapplication.view.searchcity.SearchCityViewModel" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/bg_fragment_search_city">
+        android:background="@color/bg_fragment_search_city"
+        android:id="@+id/layout_main_snackbar">
+
+        <com.duynam.myapplication.ui.WP7ProgressBar
+            android:layout_width="@dimen/size_200"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/wp7_progress" />
 
         <TextView
             android:id="@+id/tv_huy"
@@ -42,6 +56,7 @@
             <ImageView
                 android:layout_marginLeft="@dimen/size_16"
                 android:layout_width="@dimen/size_24"
+                android:background="?attr/selectableItemBackground"
                 android:layout_height="@dimen/size_24"
                 android:src="@drawable/ic_search_white_24dp"
                 app:layout_constraintStart_toStartOf="parent"

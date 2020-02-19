@@ -18,4 +18,11 @@
     <string name="manage_city">Quản lý thành phố</string>
     <string name="humid">Humid</string>
     <string name="no_city">Không có thành phố phù hợp</string>
+    <string name="percent">%s mm</string>
+    <string name="isorainday">isorainswrsday</string>
+    <string name="sunny">sunny</string>
+    <string name="mist">mist</string>
+    <string name="cloudy">cloudy</string>
+    <string name="do_C"> °C</string>
+    <string name="doC">°C</string>
 </resources>

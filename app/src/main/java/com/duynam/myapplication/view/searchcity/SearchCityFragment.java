@@ -1,11 +1,10 @@
-package com.duynam.myapplication.fragment;
+package com.duynam.myapplication.view.searchcity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,60 +14,38 @@ import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.duynam.myapplication.R;
 import com.duynam.myapplication.adapter.SearchCityAdapter;
-import com.duynam.myapplication.data.RetrofitWeather;
 import com.duynam.myapplication.databinding.FragmentSearchCityBinding;
-import com.duynam.myapplication.model.searchCity.CityListResult;
 import com.duynam.myapplication.model.searchCity.Result;
-import com.duynam.myapplication.view.HomeActivity;
+import com.duynam.myapplication.view.home.HomeActivity;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-public class SearchCityFragment extends Fragment implements SearchCityAdapter.OnItemClickListener {
+public class SearchCityFragment extends Fragment implements SearchCityAdapter.OnItemClickListener, SearchCityViewModel.OnSearchCity {
 
     private FragmentSearchCityBinding binding;
     private List<Result> resultList;
-    private SearchCityAdapter adapter;
+    private SearchCityAdapter searchCityAdapter;
     private GridLayoutManager gridLayoutManager;
+    private SearchCityViewModel searchCityViewModel;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_search_city, container, false);
-        resultList = new ArrayList<>();
-        adapter = new SearchCityAdapter(resultList, getContext());
-
-        gridLayoutManager = new GridLayoutManager(getContext(), 4);
-        binding.rvListCitySearch.setLayoutManager(gridLayoutManager);
-        binding.rvListCitySearch.setAdapter(adapter);
-        adapter.setListener(this);
-        binding.setSearchcity(this);
+        init();
         return binding.getRoot();
     }
 
-    public void getCity() {
-        RetrofitWeather.getInstanceCity().searchCity(binding.edtSearchCity.getText().toString().trim()).enqueue(new Callback<CityListResult>() {
-            @Override
-            public void onResponse(Call<CityListResult> call, Response<CityListResult> response) {
-                if (response.code() == 200) {
-                    if (response.body().getResults().size() != 0) {
-                        resultList.addAll(response.body().getResults());
-                        adapter.notifyDataSetChanged();
-                    } else {
-                        Toast.makeText(getContext(), R.string.no_city, Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<CityListResult> call, Throwable t) {
-
-            }
-        });
+    private void init() {
+        resultList = new ArrayList<>();
+        searchCityViewModel = new SearchCityViewModel(binding.wp7Progress);
+        searchCityViewModel.setOnSearchCity(this);
+        gridLayoutManager = new GridLayoutManager(getContext(), 4);
+        binding.rvListCitySearch.setLayoutManager(gridLayoutManager);
+        binding.rvListCitySearch.setAdapter(searchCityAdapter);
+        binding.setSearchcity(this);
     }
 
     @Override
@@ -80,18 +57,27 @@ public class SearchCityFragment extends Fragment implements SearchCityAdapter.On
     }
 
     public void searchCity(View view) {
-        resultList.clear();
-        getCity();
+        view = binding.layoutMainSnackbar;
+        String mess = getContext().getResources().getString(R.string.no_city);
+        int dur = Snackbar.LENGTH_INDEFINITE;
+        searchCityViewModel.getCity(binding.edtSearchCity.getText().toString().trim(), view, mess, dur);
     }
 
     public void deleteSearchText(View view) {
         binding.edtSearchCity.setText("");
     }
 
-    public void removeView(View view){
+    public void removeView(View view) {
         getActivity().getSupportFragmentManager().beginTransaction().remove(SearchCityFragment.this).commit();
     }
 
+    @Override
+    public void getCity(List<Result> results) {
+        searchCityAdapter = new SearchCityAdapter(results, getContext());
+        searchCityAdapter.setListener(this);
+        binding.rvListCitySearch.setLayoutManager(gridLayoutManager);
+        binding.rvListCitySearch.setAdapter(searchCityAdapter);
+    }
 
 
 }

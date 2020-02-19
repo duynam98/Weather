@@ -1,18 +1,22 @@
 package com.duynam.myapplication.adapter;
 
 import android.content.Context;
+import android.database.Observable;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ObservableField;
+import androidx.databinding.ObservableInt;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.duynam.myapplication.R;
 import com.duynam.myapplication.databinding.ItemWeather24hourBinding;
 import com.duynam.myapplication.model.sevendayweather.Timeframe;
-import com.duynam.myapplication.untils.Untils;
+import com.duynam.myapplication.untils.Utils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HourAdapter extends RecyclerView.Adapter<HourAdapter.ViewHolder> {
@@ -23,6 +27,14 @@ public class HourAdapter extends RecyclerView.Adapter<HourAdapter.ViewHolder> {
     public HourAdapter(Context context, List<Timeframe> timeframes) {
         this.context = context;
         this.timeframes = timeframes;
+    }
+
+    public void setData(List<Timeframe> timeframeList){
+        if (timeframeList != null){
+            timeframes.clear();
+            timeframes.addAll(timeframeList);
+            notifyDataSetChanged();
+        }
     }
 
     @NonNull
@@ -46,8 +58,8 @@ public class HourAdapter extends RecyclerView.Adapter<HourAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public int time;
-        public String temp;
+        public ObservableInt time = new ObservableInt();
+        public ObservableField<String> temp = new ObservableField<>();
         private ItemWeather24hourBinding itemWeather24hourBinding;
         public String name;
 
@@ -60,10 +72,11 @@ public class HourAdapter extends RecyclerView.Adapter<HourAdapter.ViewHolder> {
             if (itemWeather24hourBinding.getHolder() == null) {
                 itemWeather24hourBinding.setHolder(this);
             }
-            temp = timeframe.getTempC() + "°C";
-            time = timeframe.getTime();
+            temp.set(timeframe.getTempC() + "°C");
+            time.set(timeframe.getTime());
             name = timeframe.getWxIcon();
-            itemWeather24hourBinding.setImage(Untils.convertImageName(name));
+            String iconname = String.valueOf(name);
+            itemWeather24hourBinding.setImage(Utils.convertImageName(iconname));
         }
 
     }

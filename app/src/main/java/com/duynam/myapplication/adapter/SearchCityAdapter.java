@@ -27,6 +27,14 @@ public class SearchCityAdapter extends RecyclerView.Adapter<SearchCityAdapter.Vi
         this.context = context;
     }
 
+    public void setData(List<Result> results) {
+        if (results != null){
+            resultList.clear();
+            resultList.addAll(results);
+            notifyDataSetChanged();
+        }
+    }
+
     @NonNull
     @Override
     public Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -61,8 +69,8 @@ public class SearchCityAdapter extends RecyclerView.Adapter<SearchCityAdapter.Vi
             this.itemSearchCityBinding = itemSearchCityBinding;
         }
 
-        public void setBinding(Result result){
-            if (itemSearchCityBinding.getHolder() == null){
+        public void setBinding(Result result) {
+            if (itemSearchCityBinding.getHolder() == null) {
                 itemSearchCityBinding.setHolder(this);
             }
             name_city.set(result.getName());

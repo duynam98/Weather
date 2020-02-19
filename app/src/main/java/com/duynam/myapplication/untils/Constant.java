@@ -13,12 +13,4 @@ public class Constant {
     public static String OPENWEATHER = "https://api.openweathermap.org/data/2.5/weather";
     public static String APPID_OPENWEATHER = "appid=55b62a4688fd9e2485edb1c3cb0ac3c3&units=metric";
 
-    public static String CREATE_TABLE_CURRENT_WEATHER = "CREATE TABLE " + TABLE_CURRENT_WEATHER + "(" +
-            COLUMN_LAT + " DOUBLE," +
-            COLUMN_LON + " DOUBLE," +
-            COLUMN_NAME_CITY + " TEXT PRIMARY KEY," +
-            COLUMN_TEMP_C + " DOUBLE," +
-            COLUMN_IMAGE + " TEXT" +
-            ")";
-
 }

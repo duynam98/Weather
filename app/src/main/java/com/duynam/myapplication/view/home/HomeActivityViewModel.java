@@ -6,21 +6,22 @@ import android.widget.TextView;
 
 import androidx.databinding.ObservableDouble;
 import androidx.databinding.ObservableField;
-import androidx.databinding.ObservableInt;
 import androidx.lifecycle.ViewModel;
 
 import com.duynam.myapplication.database.CurrenWeatherDAO;
 import com.duynam.myapplication.database.DatabaseHelper;
 import com.duynam.myapplication.httpUrlConnection.GetCurrentWeatherHttp;
 import com.duynam.myapplication.httpUrlConnection.GetForecastWeatherHttp;
+import com.duynam.myapplication.httpUrlConnection.GetFullMonHttp;
 import com.duynam.myapplication.httpUrlConnection.GetWeatherCityHttp;
 import com.duynam.myapplication.model.CurrenWeather;
 import com.duynam.myapplication.model.modelUsingHttp.CurrenLocalCity;
+import com.duynam.myapplication.model.modelUsingHttp.FullMoon;
 import com.duynam.myapplication.model.searchCity.Result;
 import com.duynam.myapplication.model.sevendayweather.Day;
 import com.duynam.myapplication.model.sevendayweather.Timeframe;
-import com.duynam.myapplication.untils.Constant;
-import com.duynam.myapplication.untils.Utils;
+import com.duynam.myapplication.utils.Constant;
+import com.duynam.myapplication.utils.Utils;
 
 import java.util.List;
 
@@ -29,17 +30,12 @@ import im.delight.android.location.SimpleLocation;
 public class HomeActivityViewModel extends ViewModel {
 
     private Context context;
-    public ObservableDouble temp = new ObservableDouble();
-    public ObservableField<String> desc = new ObservableField<>();
     public ObservableField<String> sunriseTime = new ObservableField<>();
     public ObservableField<String> sunsetTime = new ObservableField<>();
     public ObservableDouble percent_rain = new ObservableDouble();
     public ObservableDouble rain_mm = new ObservableDouble();
-    public ObservableDouble dew_poin = new ObservableDouble();
-    public ObservableDouble humid = new ObservableDouble();
-    public ObservableDouble real_feel = new ObservableDouble();
-    public ObservableDouble wind_speed = new ObservableDouble();
-    public ObservableInt wind_deg = new ObservableInt();
+    public ObservableField<String> wind_degree = new ObservableField<>();
+    public ObservableField<String> day_fullMoon = new ObservableField<>();
     private OnLoadList onLoadList;
     private DatabaseHelper databaseHelper;
     private CurrenWeatherDAO dao;
@@ -66,13 +62,8 @@ public class HomeActivityViewModel extends ViewModel {
         GetCurrentWeatherHttp.OnLoadData onLoadData = new GetCurrentWeatherHttp.OnLoadData() {
             @Override
             public void onLoadFinish(CurrenWeather currenWeather) {
-                temp.set(currenWeather.getTempC());
-                desc.set(currenWeather.getWxDesc());
-                dew_poin.set(currenWeather.getDewpointC());
-                humid.set(currenWeather.getHumidPct());
-                real_feel.set(currenWeather.getFeelslikeC());
-                wind_speed.set(currenWeather.getWindspdKmh());
-                wind_deg.set(currenWeather.getWinddirdeg());
+                wind_degree.set(Utils.checkWindDegree(context, currenWeather.getWinddirdeg()));
+                onLoadList.getCurrentWether(currenWeather);
             }
         };
         getCurrentWeatherHttp.setOnLoadData(onLoadData);
@@ -119,23 +110,38 @@ public class HomeActivityViewModel extends ViewModel {
         http.setOnLoadComplete(onLoadComplete);
     }
 
+    public void getFullMoon(){
+        GetFullMonHttp getFullMonHttp = new GetFullMonHttp();
+        getFullMonHttp.execute(Constant.BASE_URL_FULLMOON);
+        GetFullMonHttp.OnLoadFullMoon onLoadFullMoon = new GetFullMonHttp.OnLoadFullMoon() {
+            @Override
+            public void LoadFullMoon(FullMoon fullMoon) {
+                day_fullMoon.set(Utils.formatISODatetoDate(fullMoon.dateTimeISO));
+            }
+        };
+        getFullMonHttp.setOnLoadFullMoon(onLoadFullMoon);
+    }
+
     public void checkLocationgetData(Activity activity, TextView textView) {
         result = activity.getIntent().getParcelableExtra("latlongcity");
         localCity = activity.getIntent().getParcelableExtra("currenLocalCity");
         if (result == null && localCity == null) {
             getCurrenData(simplelocation());
             getForecastData(simplelocation());
+            getFullMoon();
             textView.setText(Utils.setCurrentNameCity(context, simpleLocation.getLatitude(), simpleLocation.getLongitude()));
-        } else if (result != null){
+        } else if (result != null) {
             addCitytoMenu(Double.parseDouble(result.getLat()), Double.parseDouble(result.getLon()));
             String latlong = result.getLat() + "," + result.getLon();
             getCurrenData(latlong);
             getForecastData(latlong);
+            getFullMoon();
             textView.setText(result.getName());
-        }else {
+        } else {
             String latlong = localCity.getLatitude() + "," + localCity.getLongtitude();
             getCurrenData(latlong);
             getForecastData(latlong);
+            getFullMoon();
             textView.setText(localCity.getName());
         }
     }
@@ -143,7 +149,12 @@ public class HomeActivityViewModel extends ViewModel {
 
     public interface OnLoadList {
         void getDayList(List<Day> days);
+
         void getTimeList(List<Timeframe> timeframes);
+
+        void getCurrentWether(CurrenWeather currenWeather);
+
+        void getFullMoonFinish(FullMoon moon);
     }
 
     //    public void get7dayForecast(String latlong) {

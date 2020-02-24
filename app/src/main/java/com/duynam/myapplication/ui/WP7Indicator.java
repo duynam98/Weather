@@ -7,7 +7,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.duynam.myapplication.untils.Utils;
+import com.duynam.myapplication.utils.Utils;
 
 public class WP7Indicator extends View {
 

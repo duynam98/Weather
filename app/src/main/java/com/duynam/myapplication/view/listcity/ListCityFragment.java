@@ -89,7 +89,7 @@ public class ListCityFragment extends Fragment implements ListCityAdapter.OnCLic
     public void OnLongClick(CurrenLocalCity currenLocalCity, int pos) {
         listCityViewModel.deleteCity(currenLocalCity);
         localCityList.remove(pos);
-        adapter.notifyItemChanged(pos);
+        adapter.notifyItemRemoved(pos);
     }
 
 

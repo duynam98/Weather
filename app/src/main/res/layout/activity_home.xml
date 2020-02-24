@@ -8,10 +8,6 @@
             type="com.duynam.myapplication.view.home.HomeActivityViewModel" />
 
         <variable
-            name="day"
-            type="com.duynam.myapplication.model.sevendayweather.Day" />
-
-        <variable
             name="currentWeather"
             type="com.duynam.myapplication.model.CurrenWeather" />
 
@@ -22,10 +18,6 @@
         <variable
             name="home"
             type="com.duynam.myapplication.view.home.HomeActivity" />
-
-        <variable
-            name="city"
-            type="com.duynam.myapplication.model.City" />
 
     </data>
 
@@ -91,7 +83,7 @@
                         android:layout_height="wrap_content"
                         android:includeFontPadding="false"
                         android:lineHeight="@dimen/size_96"
-                        android:text="@{String.valueOf(currentViewModel.temp)}"
+                        android:text="@{String.valueOf(currentWeather.tempC)}"
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_size_82"
                         app:layout_constraintStart_toStartOf="@id/img_pinmap"
@@ -114,7 +106,7 @@
                         android:layout_marginLeft="@dimen/size_17"
                         android:layout_marginTop="@dimen/size_5"
                         android:lineHeight="@dimen/size_22"
-                        android:text="@{currentViewModel.desc}"
+                        android:text="@{currentWeather.wxDesc}"
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_size_19"
                         app:layout_constraintBottom_toBottomOf="@id/tv_nhietdo"
@@ -141,7 +133,7 @@
                         android:layout_width="@dimen/size_129"
                         android:layout_height="@dimen/size_22"
                         android:layout_marginTop="@dimen/size_5"
-                        android:text="@{currentViewModel.desc}"
+                        android:text="@{currentWeather.wxDesc}"
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_size_16"
                         android:textStyle="bold"
@@ -156,7 +148,7 @@
                         android:layout_width="@dimen/size_284"
                         android:layout_height="@dimen/size_31"
                         android:layout_marginTop="@dimen/size_8"
-                        android:text="@string/desc_weather"
+                        android:text=""
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_size_12"
                         app:layout_constraintStart_toStartOf="@id/img_pinmap"
@@ -375,7 +367,7 @@
                         android:id="@+id/tv_dewpoint"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/size_24"
-                        android:text="@{String.valueOf(currentViewModel.dew_poin)}"
+                        android:text="@{String.valueOf(currentWeather.dewpointC)}"
                         android:textColor="@color/Precipitation"
                         android:textSize="@dimen/text_size_16"
                         app:layout_constraintStart_toEndOf="@id/img_dewpoint"
@@ -396,7 +388,7 @@
                         android:id="@+id/tv_giotnuoc"
                         android:layout_width="@dimen/size_57"
                         android:layout_height="@dimen/size_24"
-                        android:text="@{String.valueOf(currentViewModel.humid)}"
+                        android:text="@{String.valueOf(currentWeather.humidPct)}"
                         android:textColor="@color/Precipitation"
                         android:textSize="@dimen/text_size_16"
                         app:layout_constraintStart_toEndOf="@id/img_giotnuoc"
@@ -419,7 +411,7 @@
                         android:id="@+id/tv_nhietke"
                         android:layout_width="@dimen/size_57"
                         android:layout_height="@dimen/size_24"
-                        android:text="@{String.valueOf(currentViewModel.real_feel)}"
+                        android:text="@{String.valueOf(currentWeather.feelslikeC)}"
                         android:textColor="@color/Precipitation"
                         android:textSize="@dimen/text_size_16"
                         app:layout_constraintStart_toEndOf="@id/img_nhietke"
@@ -474,7 +466,7 @@
                         android:fontFamily="@font/roboto"
                         android:layout_width="@dimen/size_102"
                         android:layout_height="@dimen/size_18"
-                        android:text="21 Jan"
+                        android:text="@{currentViewModel.day_fullMoon}"
                         android:textColor="@color/tv_sunmon"
                         android:textSize="@dimen/text_size_14"
                         app:layout_constraintStart_toStartOf="@id/tv_fullmon"
@@ -590,7 +582,7 @@
                         android:layout_marginLeft="@dimen/size_36"
                         android:layout_marginTop="@dimen/size_20"
                         android:gravity="center"
-                        android:text="@{String.valueOf(currentViewModel.wind_speed)}"
+                        android:text="@{String.valueOf(currentWeather.windspdKmh)}"
                         android:textColor="@color/tv_win"
                         android:textSize="@dimen/text_size_32" />
 
@@ -660,7 +652,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/img_tree"
                         android:layout_marginBottom="@dimen/size_36"
-                        android:text="@{String.valueOf(currentViewModel.wind_deg)}"
+                        android:text="@{currentViewModel.wind_degree}"
                         android:textColor="@color/tv_win" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

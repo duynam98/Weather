@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.duynam.myapplication.R;
 import com.duynam.myapplication.databinding.Item7dayBinding;
 import com.duynam.myapplication.model.sevendayweather.Day;
-import com.duynam.myapplication.untils.Utils;
+import com.duynam.myapplication.utils.Utils;
 
 import java.util.List;
 

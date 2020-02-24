@@ -5,8 +5,10 @@ import android.content.pm.PackageManager;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -22,11 +24,13 @@ import com.duynam.myapplication.adapter.ListCityAdapter;
 import com.duynam.myapplication.database.CurrenWeatherDAO;
 import com.duynam.myapplication.database.DatabaseHelper;
 import com.duynam.myapplication.databinding.ActivityHomeBinding;
+import com.duynam.myapplication.model.CurrenWeather;
+import com.duynam.myapplication.model.modelUsingHttp.FullMoon;
 import com.duynam.myapplication.view.listcity.ListCityFragment;
 import com.duynam.myapplication.model.searchCity.Result;
 import com.duynam.myapplication.model.sevendayweather.Day;
 import com.duynam.myapplication.model.sevendayweather.Timeframe;
-import com.duynam.myapplication.untils.Utils;
+import com.duynam.myapplication.utils.Utils;
 import com.duynam.myapplication.view.searchcity.SearchCityFragment;
 
 import java.util.ArrayList;
@@ -68,7 +72,6 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityViewM
         setLayoutRecycleview();
         setHeight();
         homeBinding.tvTocdoxe.setText(String.valueOf(Utils.random()));
-
     }
 
     public void setHeight() {
@@ -196,6 +199,16 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityViewM
         hourAdapter.setData(timeframes);
         homeBinding.rvList24hour.setLayoutManager(layoutManager);
         homeBinding.rvList24hour.setAdapter(hourAdapter);
+    }
+
+    @Override
+    public void getCurrentWether(CurrenWeather currenWeather) {
+        homeBinding.setCurrentWeather(currenWeather);
+    }
+
+    @Override
+    public void getFullMoonFinish(FullMoon moon) {
+
     }
 
 }

@@ -5,9 +5,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.duynam.myapplication.model.City;
 import com.duynam.myapplication.model.modelUsingHttp.CurrenLocalCity;
-import com.duynam.myapplication.untils.Constant;
+import com.duynam.myapplication.utils.Constant;
 
 import java.util.ArrayList;
 import java.util.List;

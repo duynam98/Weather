@@ -8,7 +8,7 @@ import com.duynam.myapplication.database.CurrenWeatherDAO;
 import com.duynam.myapplication.database.DatabaseHelper;
 import com.duynam.myapplication.httpUrlConnection.GetWeatherCityHttp;
 import com.duynam.myapplication.model.modelUsingHttp.CurrenLocalCity;
-import com.duynam.myapplication.untils.Constant;
+import com.duynam.myapplication.utils.Constant;
 import java.util.List;
 
 public class ListCityViewModel extends ViewModel {

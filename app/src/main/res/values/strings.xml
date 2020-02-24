@@ -25,4 +25,12 @@
     <string name="cloudy">cloudy</string>
     <string name="do_C"> °C</string>
     <string name="doC">°C</string>
+    <string name="wind_degree_northerly">Northerly</string>
+    <string name="wind_degree_North_Westerly">North Westerly</string>
+    <string name="wind_degree_Westerly">Westerly</string>
+    <string name="wind_degree_South_Westerly">South Westerly</string>
+    <string name="wind_degree_Southerly">Southerly</string>
+    <string name="wind_degree_South_Easterly">South Easterly</string>
+    <string name="wind_degree_Easterly">Easterly</string>
+    <string name="wind_degree_North_Easterly">North Easterly</string>
 </resources>

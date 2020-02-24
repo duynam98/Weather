@@ -1,7 +1,6 @@
 package com.duynam.myapplication.adapter;
 
 import android.content.Context;
-import android.database.Observable;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -14,9 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.duynam.myapplication.R;
 import com.duynam.myapplication.databinding.ItemWeather24hourBinding;
 import com.duynam.myapplication.model.sevendayweather.Timeframe;
-import com.duynam.myapplication.untils.Utils;
+import com.duynam.myapplication.utils.Utils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class HourAdapter extends RecyclerView.Adapter<HourAdapter.ViewHolder> {

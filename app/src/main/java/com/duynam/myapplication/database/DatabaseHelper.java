@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
-import com.duynam.myapplication.untils.Constant;
+import com.duynam.myapplication.utils.Constant;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 

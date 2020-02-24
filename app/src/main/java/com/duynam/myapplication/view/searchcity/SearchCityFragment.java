@@ -2,9 +2,12 @@ package com.duynam.myapplication.view.searchcity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,12 +32,16 @@ public class SearchCityFragment extends Fragment implements SearchCityAdapter.On
     private SearchCityAdapter searchCityAdapter;
     private GridLayoutManager gridLayoutManager;
     private SearchCityViewModel searchCityViewModel;
+    private View viewSnackBar;
+    private String mess;
+    private int durSnackbar;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_search_city, container, false);
         init();
+        searchCity();
         return binding.getRoot();
     }
 
@@ -46,6 +53,10 @@ public class SearchCityFragment extends Fragment implements SearchCityAdapter.On
         binding.rvListCitySearch.setLayoutManager(gridLayoutManager);
         binding.rvListCitySearch.setAdapter(searchCityAdapter);
         binding.setSearchcity(this);
+        searchCityAdapter = new SearchCityAdapter(resultList, getContext());
+        viewSnackBar = binding.layoutMainSnackbar;
+        mess  = getContext().getResources().getString(R.string.no_city);
+        durSnackbar = Snackbar.LENGTH_INDEFINITE;
     }
 
     @Override
@@ -56,11 +67,17 @@ public class SearchCityFragment extends Fragment implements SearchCityAdapter.On
         startActivity(intent);
     }
 
-    public void searchCity(View view) {
-        view = binding.layoutMainSnackbar;
-        String mess = getContext().getResources().getString(R.string.no_city);
-        int dur = Snackbar.LENGTH_INDEFINITE;
-        searchCityViewModel.getCity(binding.edtSearchCity.getText().toString().trim(), view, mess, dur);
+    public void searchCity() {
+        binding.edtSearchCity.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    searchCityViewModel.getCity(binding.edtSearchCity.getText().toString().trim(), viewSnackBar, mess, durSnackbar);
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     public void deleteSearchText(View view) {
@@ -73,7 +90,7 @@ public class SearchCityFragment extends Fragment implements SearchCityAdapter.On
 
     @Override
     public void getCity(List<Result> results) {
-        searchCityAdapter = new SearchCityAdapter(results, getContext());
+        searchCityAdapter.setData(results);
         searchCityAdapter.setListener(this);
         binding.rvListCitySearch.setLayoutManager(gridLayoutManager);
         binding.rvListCitySearch.setAdapter(searchCityAdapter);

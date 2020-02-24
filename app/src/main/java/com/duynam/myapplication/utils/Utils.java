@@ -1,15 +1,17 @@
-package com.duynam.myapplication.untils;
+package com.duynam.myapplication.utils;
 
 import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
-import android.widget.TextView;
 
 import com.duynam.myapplication.R;
 import com.duynam.myapplication.model.sevendayweather.Day;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -71,6 +73,29 @@ public class Utils {
         int speedcar = 0;
         speedcar = random.nextInt((100 - 30) + 1) + 30;
         return speedcar;
+    }
+
+    public static String checkWindDegree(Context context, int degree){
+        if (degree>337.5) return context.getString(R.string.wind_degree_northerly);
+        if (degree>292.5) return context.getString(R.string.wind_degree_North_Westerly);
+        if(degree>247.5) return context.getString(R.string.wind_degree_Westerly);
+        if(degree>202.5) return context.getString(R.string.wind_degree_South_Westerly);
+        if(degree>157.5) return context.getString(R.string.wind_degree_Southerly);
+        if(degree>122.5) return context.getString(R.string.wind_degree_South_Easterly);
+        if(degree>67.5) return context.getString(R.string.wind_degree_Easterly);
+        if(degree>22.5) return context.getString(R.string.wind_degree_North_Easterly);
+        return context.getString(R.string.wind_degree_northerly);
+    }
+
+    public static String formatISODatetoDate(String ISODate){
+        String result1 = null;
+        DateFormat df1 = new SimpleDateFormat("yyy-MM-dd");
+        try {
+            result1 = String.valueOf(df1.parse(ISODate));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return result1.substring(0, 10);
     }
 
 }

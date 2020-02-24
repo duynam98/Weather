@@ -36,6 +36,7 @@ public class ListCityViewModel extends ViewModel {
         http.setOnLoadComplete(onLoadComplete);
     }
 
+    // update data city khi vào menu
     public void UpdateCitytoMenu() {
         localCityList = dao.getAllCity();
         if (localCityList.size() != 0) {
@@ -47,7 +48,7 @@ public class ListCityViewModel extends ViewModel {
             }
         }
     }
-
+    
     public void deleteCity(CurrenLocalCity cityname) {
         dao.delete(cityname);
     }

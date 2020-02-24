@@ -5,32 +5,29 @@ import android.content.pm.PackageManager;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.duynam.myapplication.R;
 import com.duynam.myapplication.adapter.HomeAdapter;
 import com.duynam.myapplication.adapter.HourAdapter;
-import com.duynam.myapplication.adapter.ListCityAdapter;
-import com.duynam.myapplication.database.CurrenWeatherDAO;
 import com.duynam.myapplication.database.DatabaseHelper;
 import com.duynam.myapplication.databinding.ActivityHomeBinding;
 import com.duynam.myapplication.model.CurrenWeather;
 import com.duynam.myapplication.model.modelUsingHttp.FullMoon;
-import com.duynam.myapplication.view.listcity.ListCityFragment;
 import com.duynam.myapplication.model.searchCity.Result;
 import com.duynam.myapplication.model.sevendayweather.Day;
 import com.duynam.myapplication.model.sevendayweather.Timeframe;
 import com.duynam.myapplication.utils.Utils;
+import com.duynam.myapplication.view.listcity.ListCityFragment;
 import com.duynam.myapplication.view.searchcity.SearchCityFragment;
 
 import java.util.ArrayList;
@@ -41,7 +38,6 @@ import im.delight.android.location.SimpleLocation;
 public class HomeActivity extends AppCompatActivity implements HomeActivityViewModel.OnLoadList{
 
     public ActivityHomeBinding homeBinding;
-    private double latitude, longtitude;
     private List<Day> daylistFull;
     private HomeAdapter homeAdapter;
     private HourAdapter hourAdapter;
@@ -52,28 +48,26 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityViewM
     private SearchCityFragment fragmentSearchCity;
     private ListCityFragment fragmentListCity;
     public FragmentManager fragmentManager;
-    private Result result;
     private LinearLayoutManager layoutManager;
-    private DatabaseHelper databaseHelper;
-    private CurrenWeatherDAO dao;
-    private ListCityAdapter listCityAdapter;
-    public final int MY_PERMISSIONS_REQUEST = 1000;
     private HomeActivityViewModel homeActivityViewModel;
+    public static final int REQUEST_CODE = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initDataBinding();
-        initPremission();
-        latitude = simpleLocation.getLatitude();
-        longtitude = simpleLocation.getLongitude();
+        initAdapter();
+        initFragment();
+        initPermission();
         callFragmentCity();
         scroolLayout();
-        setLayoutRecycleview();
+        setLayoutRecycleview(homeBinding.rvListForecast, homeBinding.rvList24hour);
         setHeight();
         homeBinding.tvTocdoxe.setText(String.valueOf(Utils.random()));
+        setDatetoText();
     }
 
+    // đặt lại chiều cao full screen cho ScrollView
     public void setHeight() {
         Point size = new Point();
         getWindowManager().getDefaultDisplay().getSize(size);
@@ -82,6 +76,7 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityViewM
         params.height = screenHeight;
     }
 
+    // Call fragmentCity khi nhấn menu
     public void callFragmentCity() {
         homeBinding.imgMenuFragment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,6 +90,7 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityViewM
 
     }
 
+    // replace FragmentSearchCity khi nhấn FloatingButton
     public void callFragmentSearchCity() {
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
@@ -103,14 +99,16 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityViewM
         fragmentTransaction.commit();
     }
 
-    public void setLayoutRecycleview() {
-        homeBinding.rvListForecast.setLayoutManager(new LinearLayoutManager(this));
-        homeBinding.rvListForecast.setAdapter(homeAdapter);
-        homeBinding.rvList24hour.setLayoutManager(layoutManager);
-        homeBinding.rvList24hour.setAdapter(hourAdapter);
+    // set layout cho recycleview
+    public void setLayoutRecycleview(RecyclerView rv_forecast, RecyclerView rv_list24) {
+        layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        rv_forecast.setLayoutManager(new LinearLayoutManager(this));
+        rv_forecast.setAdapter(homeAdapter);
+        rv_list24.setLayoutManager(layoutManager);
+        rv_list24.setAdapter(hourAdapter);
     }
 
-
+    // nhấn mũi tên ScrollView trượt xuống hoặc lên
     public void scroolLayout() {
         homeBinding.imgNextContainer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,55 +127,63 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityViewM
         });
     }
 
-    public void initPremission() {
+    // xin quyền location
+    public void initPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                     checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                        Manifest.permission.ACCESS_FINE_LOCATION)) {
-
-                } else {
-                    ActivityCompat.requestPermissions(this,
-                            new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
-                            1000);
+                if (!shouldShowRequestPermissionRationale(Manifest.permission.READ_CONTACTS)) {
+                    requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE);
                 }
+                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE);
+                return;
             }
-            homeActivityViewModel.checkLocationgetData(this, homeBinding.tvCity);
-        } else {
             homeActivityViewModel.checkLocationgetData(this, homeBinding.tvCity);
         }
     }
 
+
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST: {
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            case REQUEST_CODE:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     homeActivityViewModel.checkLocationgetData(this, homeBinding.tvCity);
                 } else {
 
                 }
-                return;
-            }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
+    }
+
+    //khởi tạo adapter
+    private void initAdapter(){
+        timeframeList = new ArrayList<>();
+        daylistFull = new ArrayList<>();
+        homeAdapter = new HomeAdapter(this, daylistFull);
+        hourAdapter = new HourAdapter(this, timeframeList);
+    }
+
+    //Khởi tạo Fragment
+    private void initFragment(){
+        fragmentListCity = new ListCityFragment();
+        fragmentSearchCity = new SearchCityFragment();
+    }
+
+    //set currentDate lên textview
+    private void setDatetoText(){
+        homeBinding.tvCurrendate.setText(Utils.getCurrendate(getString(R.string.month)));
     }
 
     private void initDataBinding() {
         homeBinding = DataBindingUtil.setContentView(this, R.layout.activity_home);
-        databaseHelper = new DatabaseHelper(this);
-        dao = new CurrenWeatherDAO(databaseHelper);
-        homeBinding.tvCurrendate.setText(Utils.getCurrendate(getString(R.string.month)));
-        fragmentListCity = new ListCityFragment();
-        fragmentSearchCity = new SearchCityFragment();
-        layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        timeframeList = new ArrayList<>();
-        daylistFull = new ArrayList<>();
         simpleLocation = new SimpleLocation(this);
         homeActivityViewModel = new HomeActivityViewModel(this);
         homeActivityViewModel.setOnLoadList(this);
         homeBinding.setCurrentViewModel(homeActivityViewModel);
-        homeAdapter = new HomeAdapter(this, daylistFull);
-        hourAdapter = new HourAdapter(this, timeframeList);
     }
 
     @Override

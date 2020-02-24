@@ -13,6 +13,7 @@ import com.duynam.myapplication.database.DatabaseHelper;
 import com.duynam.myapplication.httpUrlConnection.GetCurrentWeatherHttp;
 import com.duynam.myapplication.httpUrlConnection.GetForecastWeatherHttp;
 import com.duynam.myapplication.httpUrlConnection.GetFullMonHttp;
+import com.duynam.myapplication.httpUrlConnection.GetLastQuarterHttp;
 import com.duynam.myapplication.httpUrlConnection.GetWeatherCityHttp;
 import com.duynam.myapplication.model.CurrenWeather;
 import com.duynam.myapplication.model.modelUsingHttp.CurrenLocalCity;
@@ -36,6 +37,7 @@ public class HomeActivityViewModel extends ViewModel {
     public ObservableDouble rain_mm = new ObservableDouble();
     public ObservableField<String> wind_degree = new ObservableField<>();
     public ObservableField<String> day_fullMoon = new ObservableField<>();
+    public ObservableField<String> last_quarter = new ObservableField<>();
     private OnLoadList onLoadList;
     private DatabaseHelper databaseHelper;
     private CurrenWeatherDAO dao;
@@ -98,6 +100,7 @@ public class HomeActivityViewModel extends ViewModel {
         getForecastWeatherHttp.setOnLoadForecast(onLoadForecast);
     }
 
+    // add city người dùng chọn vào menu
     public void addCitytoMenu(double latitude, double longtitude) {
         GetWeatherCityHttp http = new GetWeatherCityHttp();
         http.execute(Constant.OPENWEATHER + "?" + "lat=" + latitude + "&" + "lon=" + longtitude + "&" + Constant.APPID_OPENWEATHER);
@@ -110,6 +113,7 @@ public class HomeActivityViewModel extends ViewModel {
         http.setOnLoadComplete(onLoadComplete);
     }
 
+    // lấy data ngày trăng tròn
     public void getFullMoon(){
         GetFullMonHttp getFullMonHttp = new GetFullMonHttp();
         getFullMonHttp.execute(Constant.BASE_URL_FULLMOON);
@@ -122,6 +126,20 @@ public class HomeActivityViewModel extends ViewModel {
         getFullMonHttp.setOnLoadFullMoon(onLoadFullMoon);
     }
 
+    // lấy data quý cuối cùng
+    public void getLastQuarter(){
+        GetLastQuarterHttp quarterHttp = new GetLastQuarterHttp();
+        quarterHttp.execute(Constant.BASE_URL_LASTQUARTER);
+        GetLastQuarterHttp.OnLoadLastQuarter onlastQuarter = new GetLastQuarterHttp.OnLoadLastQuarter() {
+            @Override
+            public void onloadlastQuarterFinish(FullMoon moon) {
+                last_quarter.set(Utils.formatISODatetoDate(moon.dateTimeISO));
+            }
+        };
+        quarterHttp.setOnLoadLastQuarter(onlastQuarter);
+    }
+
+    //check người dùng chọn thành phố load data tương ứng
     public void checkLocationgetData(Activity activity, TextView textView) {
         result = activity.getIntent().getParcelableExtra("latlongcity");
         localCity = activity.getIntent().getParcelableExtra("currenLocalCity");
@@ -129,6 +147,7 @@ public class HomeActivityViewModel extends ViewModel {
             getCurrenData(simplelocation());
             getForecastData(simplelocation());
             getFullMoon();
+            getLastQuarter();
             textView.setText(Utils.setCurrentNameCity(context, simpleLocation.getLatitude(), simpleLocation.getLongitude()));
         } else if (result != null) {
             addCitytoMenu(Double.parseDouble(result.getLat()), Double.parseDouble(result.getLon()));
@@ -136,12 +155,14 @@ public class HomeActivityViewModel extends ViewModel {
             getCurrenData(latlong);
             getForecastData(latlong);
             getFullMoon();
+            getLastQuarter();
             textView.setText(result.getName());
         } else {
             String latlong = localCity.getLatitude() + "," + localCity.getLongtitude();
             getCurrenData(latlong);
             getForecastData(latlong);
             getFullMoon();
+            getLastQuarter();
             textView.setText(localCity.getName());
         }
     }

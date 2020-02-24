@@ -4,7 +4,7 @@
     <string name="city">Hanoi</string>
     <string name="currendate">TH6, 31 THÁNG 5</string>
     <string name="desc_weather">Hôm nay - Giông bão. Cao 27 độ C. Gió BĐB ở tốc độ 10 đến 15km/giờ. Khả năng có mưa 90%.</string>
-    <string name="next_24hour">24 GIỜ TIẾP</string>
+    <string name="next_3hour">3 Giờ</string>
     <string name="weather_7day">7-day forecast</string>
     <string name="month">Tháng</string>
     <string name="sunrise">Sunrise: %s</string>

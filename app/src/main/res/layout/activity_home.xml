@@ -66,21 +66,21 @@
                         app:layout_constraintTop_toTopOf="@id/img_pinmap" />
 
                     <TextView
-                        android:fontFamily="@font/roboto"
                         android:id="@+id/tv_city"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/size_29"
                         android:layout_marginTop="@dimen/size_28"
+                        android:fontFamily="@font/roboto"
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_size_19"
                         app:layout_constraintStart_toStartOf="@id/img_pinmap"
                         app:layout_constraintTop_toBottomOf="@id/img_pinmap" />
 
                     <TextView
-                        android:fontFamily="@font/roboto"
                         android:id="@+id/tv_nhietdo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto"
                         android:includeFontPadding="false"
                         android:lineHeight="@dimen/size_96"
                         android:text="@{String.valueOf(currentWeather.tempC)}"
@@ -90,9 +90,9 @@
                         app:layout_constraintTop_toBottomOf="@id/tv_city" />
 
                     <TextView
-                        android:fontFamily="@font/roboto"
                         android:layout_width="@dimen/size_44"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto"
                         android:text="@string/doC"
                         android:textColor="@color/white"
                         android:textSize="@dimen/size_36"
@@ -100,11 +100,11 @@
                         app:layout_constraintTop_toTopOf="@id/tv_nhietdo" />
 
                     <TextView
-                        android:fontFamily="@font/roboto"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/size_29"
                         android:layout_marginLeft="@dimen/size_17"
                         android:layout_marginTop="@dimen/size_5"
+                        android:fontFamily="@font/roboto"
                         android:lineHeight="@dimen/size_22"
                         android:text="@{currentWeather.wxDesc}"
                         android:textColor="@color/white"
@@ -113,41 +113,41 @@
                         app:layout_constraintStart_toEndOf="@id/tv_nhietdo" />
 
                     <TextView
-                        android:fontFamily="@font/roboto"
                         android:id="@+id/tv_currendate"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/size_18"
                         android:layout_marginTop="@dimen/size_8"
+                        android:fontFamily="@font/roboto"
                         android:lineHeight="@dimen/size_16"
                         android:text="@string/currendate"
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_size_14"
-                        app:layout_constraintStart_toStartOf="@id/img_pinmap"
-                        app:layout_constraintTop_toBottomOf="@id/tv_nhietdo"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0"/>
+                        app:layout_constraintHorizontal_bias="0"
+                        app:layout_constraintStart_toStartOf="@id/img_pinmap"
+                        app:layout_constraintTop_toBottomOf="@id/tv_nhietdo" />
 
                     <TextView
-                        android:fontFamily="@font/roboto"
                         android:id="@+id/tv_weatherMain"
                         android:layout_width="@dimen/size_129"
                         android:layout_height="@dimen/size_22"
                         android:layout_marginTop="@dimen/size_5"
+                        android:fontFamily="@font/roboto"
                         android:text="@{currentWeather.wxDesc}"
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_size_16"
                         android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="@id/img_pinmap"
-                        app:layout_constraintTop_toBottomOf="@id/tv_currendate"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0"/>
+                        app:layout_constraintHorizontal_bias="0"
+                        app:layout_constraintStart_toStartOf="@id/img_pinmap"
+                        app:layout_constraintTop_toBottomOf="@id/tv_currendate" />
 
                     <TextView
-                        android:fontFamily="@font/roboto"
                         android:id="@+id/tv_descWeather"
                         android:layout_width="@dimen/size_284"
                         android:layout_height="@dimen/size_31"
                         android:layout_marginTop="@dimen/size_8"
+                        android:fontFamily="@font/roboto"
                         android:text=""
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_size_12"
@@ -155,19 +155,19 @@
                         app:layout_constraintTop_toBottomOf="@id/tv_weatherMain" />
 
                     <TextView
-                        android:fontFamily="@font/roboto"
-                        app:layout_constraintTop_toBottomOf="@id/tv_descWeather"
                         android:id="@+id/tv_title24"
                         android:layout_width="@dimen/size_87"
                         android:layout_height="@dimen/size_22"
+                        android:fontFamily="@font/roboto"
                         android:includeFontPadding="false"
-                        android:text="@string/next_24hour"
+                        android:text="@string/next_3hour"
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_size_14"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toTopOf="@id/frame_24hour"
                         app:layout_constraintStart_toStartOf="@id/frame_24hour"
-                        app:layout_constraintVertical_bias="1"/>
+                        app:layout_constraintTop_toBottomOf="@id/tv_descWeather"
+                        app:layout_constraintVertical_bias="1" />
 
                     <FrameLayout
                         android:id="@+id/frame_24hour"
@@ -190,11 +190,11 @@
                     </FrameLayout>
 
                     <ImageView
-                        android:fontFamily="@font/roboto"
                         android:id="@+id/img_nextContainer"
                         android:layout_width="@dimen/size_44"
                         android:layout_height="@dimen/size_44"
                         android:layout_marginTop="@dimen/size_8"
+                        android:fontFamily="@font/roboto"
                         android:src="@drawable/ic_keyboard_arrow_down_white_24dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -211,12 +211,12 @@
                     app:layout_constraintTop_toBottomOf="@id/container1">
 
                     <TextView
-                        android:fontFamily="@font/roboto"
                         android:id="@+id/title_7dayForecast"
                         android:layout_width="@dimen/size_200"
                         android:layout_height="@dimen/size_24"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="@dimen/size_10"
+                        android:fontFamily="@font/roboto"
                         android:gravity="center"
                         android:text="@string/weather_7day"
                         android:textColor="@color/sevenday_forecast"
@@ -234,13 +234,13 @@
                         app:layout_constraintTop_toBottomOf="@id/title_7dayForecast" />
 
                     <TextView
-                        android:fontFamily="@font/roboto"
                         android:id="@+id/tv_addForecast"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal|bottom"
                         android:layout_marginTop="@dimen/size_24"
                         android:layout_marginBottom="@dimen/size_24"
+                        android:fontFamily="@font/roboto"
                         android:gravity="center"
                         android:text="+4 More"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -251,20 +251,20 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    app:layout_constraintTop_toBottomOf="@id/container_7day"
                     android:id="@+id/constrain_precipitation"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/size_287"
                     android:layout_marginTop="@dimen/size_5"
-                    android:background="@drawable/framelayout_border">
+                    android:background="@drawable/framelayout_border"
+                    app:layout_constraintTop_toBottomOf="@id/container_7day">
 
                     <TextView
-                        android:fontFamily="@font/roboto"
                         android:id="@+id/tv_title_prec"
                         android:layout_width="@dimen/size_200"
                         android:layout_height="@dimen/size_24"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="@dimen/size_10"
+                        android:fontFamily="@font/roboto"
                         android:gravity="center"
                         android:text="@string/title_containner2"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -272,12 +272,12 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:fontFamily="@font/roboto"
                         android:id="@+id/tv_doam"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/size_51"
                         android:layout_marginLeft="@dimen/size_33"
                         android:layout_marginTop="@dimen/size_22"
+                        android:fontFamily="@font/roboto"
                         android:gravity="center"
                         android:text="@{String.valueOf(currentViewModel.percent_rain)}"
                         android:textColor="@color/Precipitation"
@@ -286,9 +286,9 @@
                         app:layout_constraintTop_toBottomOf="@id/tv_title_prec" />
 
                     <TextView
-                        android:fontFamily="@font/roboto"
                         android:layout_width="@dimen/size_109"
                         android:layout_height="@dimen/size_24"
+                        android:fontFamily="@font/roboto"
                         android:gravity="center"
                         android:text="Chance of Rain"
                         android:textColor="@color/desc_Precipitation"
@@ -342,10 +342,10 @@
                         app:layout_constraintTop_toBottomOf="@id/img_giotnuoc" />
 
                     <TextView
-                        android:fontFamily="@font/roboto"
                         android:id="@+id/tv_rain"
                         android:layout_width="@dimen/size_57"
                         android:layout_height="@dimen/size_24"
+                        android:fontFamily="@font/roboto"
                         android:text="@{String.valueOf(@string/mm(currentViewModel.rain_mm))}"
                         android:textColor="@color/Precipitation"
                         android:textSize="@dimen/text_size_16"
@@ -353,9 +353,9 @@
                         app:layout_constraintTop_toTopOf="@id/img_cocnuoc" />
 
                     <TextView
-                        android:fontFamily="@font/roboto"
                         android:layout_width="@dimen/size_97"
                         android:layout_height="@dimen/size_24"
+                        android:fontFamily="@font/roboto"
                         android:text="Precipitation"
                         android:textColor="@color/desc_Precipitation"
                         android:textSize="@dimen/text_size_16"
@@ -363,10 +363,10 @@
                         app:layout_constraintTop_toBottomOf="@id/img_cocnuoc" />
 
                     <TextView
-                        android:fontFamily="@font/roboto"
                         android:id="@+id/tv_dewpoint"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/size_24"
+                        android:fontFamily="@font/roboto"
                         android:text="@{String.valueOf(currentWeather.dewpointC)}"
                         android:textColor="@color/Precipitation"
                         android:textSize="@dimen/text_size_16"
@@ -374,9 +374,9 @@
                         app:layout_constraintTop_toTopOf="@id/img_dewpoint" />
 
                     <TextView
-                        android:fontFamily="@font/roboto"
                         android:layout_width="@dimen/size_97"
                         android:layout_height="@dimen/size_24"
+                        android:fontFamily="@font/roboto"
                         android:text="Dew Point"
                         android:textColor="@color/desc_Precipitation"
                         android:textSize="@dimen/text_size_16"
@@ -384,10 +384,10 @@
                         app:layout_constraintTop_toBottomOf="@id/img_dewpoint" />
 
                     <TextView
-                        android:fontFamily="@font/roboto"
                         android:id="@+id/tv_giotnuoc"
                         android:layout_width="@dimen/size_57"
                         android:layout_height="@dimen/size_24"
+                        android:fontFamily="@font/roboto"
                         android:text="@{String.valueOf(currentWeather.humidPct)}"
                         android:textColor="@color/Precipitation"
                         android:textSize="@dimen/text_size_16"
@@ -395,11 +395,11 @@
                         app:layout_constraintTop_toTopOf="@id/img_giotnuoc" />
 
                     <TextView
-                        android:fontFamily="@font/roboto"
                         android:layout_width="@dimen/size_97"
                         android:layout_height="@dimen/size_24"
                         android:layout_below="@+id/tv_giotnuoc"
                         android:layout_toRightOf="@id/img_cocnuoc"
+                        android:fontFamily="@font/roboto"
                         android:text="@string/humid"
                         android:textColor="@color/desc_Precipitation"
                         android:textSize="@dimen/text_size_16"
@@ -407,10 +407,10 @@
                         app:layout_constraintTop_toBottomOf="@id/img_giotnuoc" />
 
                     <TextView
-                        android:fontFamily="@font/roboto"
                         android:id="@+id/tv_nhietke"
                         android:layout_width="@dimen/size_57"
                         android:layout_height="@dimen/size_24"
+                        android:fontFamily="@font/roboto"
                         android:text="@{String.valueOf(currentWeather.feelslikeC)}"
                         android:textColor="@color/Precipitation"
                         android:textSize="@dimen/text_size_16"
@@ -418,9 +418,9 @@
                         app:layout_constraintTop_toTopOf="@id/img_nhietke" />
 
                     <TextView
-                        android:fontFamily="@font/roboto"
                         android:layout_width="@dimen/size_97"
                         android:layout_height="@dimen/size_24"
+                        android:fontFamily="@font/roboto"
                         android:text="Real Feel"
                         android:textColor="@color/desc_Precipitation"
                         android:textSize="@dimen/text_size_16"
@@ -430,19 +430,19 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    app:layout_constraintTop_toBottomOf="@+id/constrain_precipitation"
+                    android:id="@+id/constrain_sunmon"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/size_287"
                     android:layout_marginTop="@dimen/size_5"
                     android:background="@drawable/framelayout_border"
-                    android:id="@+id/constrain_sunmon">
+                    app:layout_constraintTop_toBottomOf="@+id/constrain_precipitation">
 
                     <TextView
-                        android:fontFamily="@font/roboto"
                         android:id="@+id/tv_sunmom"
                         android:layout_width="@dimen/size_200"
                         android:layout_height="@dimen/size_24"
                         android:layout_marginTop="@dimen/size_10"
+                        android:fontFamily="@font/roboto"
                         android:gravity="center"
                         android:text="@string/title_containner3"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -450,12 +450,12 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:fontFamily="@font/roboto"
                         android:id="@+id/tv_fullmon"
                         android:layout_width="@dimen/size_102"
                         android:layout_height="@dimen/size_18"
                         android:layout_marginLeft="@dimen/size_24"
                         android:layout_marginTop="@dimen/size_24"
+                        android:fontFamily="@font/roboto"
                         android:text="Full Moon"
                         android:textColor="@color/tv_sunmon"
                         android:textSize="@dimen/text_size_14"
@@ -463,9 +463,9 @@
                         app:layout_constraintTop_toBottomOf="@id/tv_sunmom" />
 
                     <TextView
-                        android:fontFamily="@font/roboto"
                         android:layout_width="@dimen/size_102"
                         android:layout_height="@dimen/size_18"
+                        android:fontFamily="@font/roboto"
                         android:text="@{currentViewModel.day_fullMoon}"
                         android:textColor="@color/tv_sunmon"
                         android:textSize="@dimen/text_size_14"
@@ -491,12 +491,12 @@
                         app:layout_constraintTop_toTopOf="@id/img_sun" />
 
                     <TextView
-                        android:fontFamily="@font/roboto"
                         android:id="@+id/tv_lastQuarter"
                         android:layout_width="@dimen/size_102"
                         android:layout_height="@dimen/size_18"
                         android:layout_below="@id/tv_sunmom"
                         android:layout_marginRight="@dimen/size_24"
+                        android:fontFamily="@font/roboto"
                         android:gravity="right"
                         android:text="Last Quarter"
                         android:textColor="@color/tv_sunmon"
@@ -506,11 +506,11 @@
                         app:layout_constraintTop_toTopOf="@id/tv_fullmon" />
 
                     <TextView
-                        android:fontFamily="@font/roboto"
                         android:layout_width="@dimen/size_102"
                         android:layout_height="@dimen/size_18"
+                        android:fontFamily="@font/roboto"
                         android:gravity="right"
-                        android:text="28 Jan"
+                        android:text="@{currentViewModel.last_quarter}"
                         android:textColor="@color/tv_sunmon"
                         android:textSize="@dimen/text_size_14"
                         app:layout_constraintStart_toStartOf="@id/tv_lastQuarter"
@@ -525,12 +525,12 @@
                         app:layout_constraintTop_toTopOf="@id/img_sun" />
 
                     <TextView
-                        android:fontFamily="@font/roboto"
                         android:id="@+id/tv_sunrise"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/size_18"
                         android:layout_marginLeft="@dimen/size_40"
                         android:layout_marginBottom="@dimen/size_33"
+                        android:fontFamily="@font/roboto"
                         android:text="@{@string/sunrise(currentViewModel.sunriseTime)}"
                         android:textColor="@color/tv_sunmon"
                         android:textSize="@dimen/text_size_14"
@@ -538,12 +538,12 @@
                         app:layout_constraintStart_toStartOf="parent" />
 
                     <TextView
-                        android:fontFamily="@font/roboto"
                         android:id="@+id/tv_sunset"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/size_18"
                         android:layout_marginRight="@dimen/size_40"
                         android:layout_marginBottom="@dimen/size_33"
+                        android:fontFamily="@font/roboto"
                         android:gravity="right"
                         android:text="@{@string/sunset(currentViewModel.sunsetTime)}"
                         android:textColor="@color/tv_sunmon"
@@ -561,99 +561,99 @@
                     app:layout_constraintTop_toBottomOf="@+id/constrain_sunmon">
 
                     <TextView
-                        android:fontFamily="@font/roboto"
                         android:id="@+id/tv_title_win"
                         android:layout_width="@dimen/size_200"
                         android:layout_height="@dimen/size_24"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
                         android:layout_marginTop="@dimen/size_10"
+                        android:fontFamily="@font/roboto"
                         android:gravity="center"
-                        android:text="@string/title_containner4" />
+                        android:text="@string/title_containner4"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:fontFamily="@font/roboto"
                         android:id="@+id/tv_tocdogio"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/size_38"
-                        app:layout_constraintTop_toBottomOf="@id/tv_title_win"
-                        app:layout_constraintStart_toStartOf="parent"
                         android:layout_marginLeft="@dimen/size_36"
                         android:layout_marginTop="@dimen/size_20"
+                        android:fontFamily="@font/roboto"
                         android:gravity="center"
                         android:text="@{String.valueOf(currentWeather.windspdKmh)}"
                         android:textColor="@color/tv_win"
-                        android:textSize="@dimen/text_size_32" />
+                        android:textSize="@dimen/text_size_32"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_title_win" />
 
                     <TextView
-                        android:fontFamily="@font/roboto"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintBottom_toBottomOf="@id/tv_tocdogio"
-                        app:layout_constraintStart_toEndOf="@id/tv_tocdogio"
+                        android:fontFamily="@font/roboto"
                         android:text="km/h"
-                        android:textColor="@color/tv_win" />
+                        android:textColor="@color/tv_win"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_tocdogio"
+                        app:layout_constraintStart_toEndOf="@id/tv_tocdogio" />
 
                     <ImageView
                         android:id="@+id/img_car"
                         android:layout_width="@dimen/size_127"
                         android:layout_height="@dimen/size_24"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         android:layout_marginRight="@dimen/size_24"
                         android:layout_marginBottom="@dimen/size_35"
-                        android:src="@drawable/car" />
+                        android:src="@drawable/car"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_above="@id/img_car"
-                        app:layout_constraintEnd_toEndOf="parent"
                         android:layout_marginRight="@dimen/size_85"
-                        app:layout_constraintBottom_toTopOf="@id/img_car">
+                        app:layout_constraintBottom_toTopOf="@id/img_car"
+                        app:layout_constraintEnd_toEndOf="parent">
 
                         <TextView
-                            android:fontFamily="@font/roboto"
                             android:id="@+id/tv_tocdoxe"
                             android:layout_width="wrap_content"
                             android:layout_height="@dimen/size_38"
+                            android:fontFamily="@font/roboto"
                             android:text="6"
                             android:textColor="@color/tv_win"
                             android:textSize="@dimen/text_size_32"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"/>
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
-                            android:fontFamily="@font/roboto"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:layout_constraintBottom_toBottomOf="@id/tv_tocdoxe"
-                            app:layout_constraintStart_toEndOf="@id/tv_tocdoxe"
+                            android:fontFamily="@font/roboto"
                             android:text="km/h"
-                            android:textColor="@color/tv_win" />
+                            android:textColor="@color/tv_win"
+                            app:layout_constraintBottom_toBottomOf="@id/tv_tocdoxe"
+                            app:layout_constraintStart_toEndOf="@id/tv_tocdoxe" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <ImageView
+                        android:id="@+id/img_tree"
                         android:layout_width="@dimen/size_74"
                         android:layout_height="@dimen/size_59"
-                        app:layout_constraintTop_toBottomOf="@id/tv_tocdogio"
-                        app:layout_constraintStart_toStartOf="parent"
                         android:layout_marginLeft="@dimen/size_23"
                         android:src="@drawable/tree"
-                        android:id="@+id/img_tree"/>
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_tocdogio" />
 
                     <TextView
-                        android:fontFamily="@font/roboto"
                         android:layout_width="@dimen/size_64"
                         android:layout_height="@dimen/size_17"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/img_tree"
                         android:layout_marginBottom="@dimen/size_36"
+                        android:fontFamily="@font/roboto"
                         android:text="@{currentViewModel.wind_degree}"
-                        android:textColor="@color/tv_win" />
+                        android:textColor="@color/tv_win"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/img_tree" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
